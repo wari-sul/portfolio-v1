@@ -75,15 +75,17 @@ const Portfolio = () => {
     const [currentProject, setCurrentProject] = useState(0)
 
   return (
-    <div className='my-6 max-w-[1200px] mx-auto grid grid-cols-8 gap-6 md:py-40' id="portfolio">
+    <div className='my-6 max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-8 gap-6 md:py-40' id="portfolio">
 
 
-<div className='z-10 col-span-3 grid place-items-center grid-cols-1 relative'>
-  <p className='text-gray-200 font-bold text-4xl -skew-y-6 '>Select Project</p>
-  <img src={arrow} className='absolute w-[50px] top-10 right-12' />
+<div className='z-10 col-span-1 md:col-span-3 grid place-items-center grid-cols-1 relative'>
+ <div className='relative w-full text-center md:text-left'>
+   <p className='text-gray-200 font-bold text-3xl md:text-4xl -skew-y-6'>Select Project</p>
+   <img src={arrow} className='hidden md:block absolute w-[50px] top-10 right-12'/>
+  </div>
 
-  <ul className='ml-6 flex flex-row md:flex-col gap-6 flex-wrap justify-center md:gap-1
-   space-y-2 md:space-y-4 text-2xl'>
+  <ul className='flex flex-row md:flex-col gap-6 flex-wrap justify-center md:gap-1
+                   space-y-0 md:space-y-4 text-xl md:text-2xl mt-4 md:mt-0'>
     {projects.map((project, index) => (
       <li
         key={index}
