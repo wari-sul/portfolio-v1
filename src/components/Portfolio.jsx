@@ -79,20 +79,20 @@ const Portfolio = () => {
 
 
 <div className='z-10 col-span-1 md:col-span-3 grid place-items-center grid-cols-1 relative'>
- <div className='relative w-full text-center md:text-left'>
-   <p className='text-gray-200 font-bold text-3xl md:text-4xl -skew-y-6'>Select Project</p>
+ <div className='relative w-full flex flex-col items-center md:items-start'>
+   <p className='text-gray-200 font-bold text-3xl md:text-4xl md:-skew-y-6'>Select Project</p>
    <img src={arrow} className='hidden md:block absolute w-[50px] top-10 right-12'/>
   </div>
 
-  <ul className='flex flex-row md:flex-col gap-6 flex-wrap justify-center md:gap-1
-                   space-y-0 md:space-y-4 text-xl md:text-2xl mt-4 md:mt-0'>
+  <ul className='flex flex-wrap justify-center w-full gap-4 md:flex-col md:gap-1
+                 md:space-y-4 text-xl md:text-2xl mt-4 md:mt-0'>
     {projects.map((project, index) => (
       <li
         key={index}
         onClick={() => setCurrentProject(index)}
-        className={`cursor-pointer text-gray-300 rounded-lg px-2 hover:bg-slate-600
-         transition duration-300 ${
-          currentProject === index ? 'active-project' : ''
+        className={`cursor-pointer text-gray-300 rounded-lg px-2 text-center
+                     hover:bg-slate-600 transition duration-300 ${
+                  currentProject === index ? 'active-project' : ''
         }`}
       >
         {project.title}
