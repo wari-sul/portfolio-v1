@@ -47,7 +47,7 @@ const About = () => {
                <div className='w-full h-full absolute -inset-1 bg-gradient-to-r from-purple-100 to-orange-900 rounded-lg
                                blur opacity-25 group-hover:opacity-100 transition duration-300'></div>    
                <div className='relative w-full p-4 bg-white bg-opacity-10 backdrop-blur-lg rounded-lg'>
-                   <img src={project4} alt="project 4" className='rounded-lg md:max-w-[520px]' />
+                   <img src={project4} alt="project 4" className='rounded-lg md:max-w-[360px]' />
                </div>
            </div>
 
@@ -55,7 +55,7 @@ const About = () => {
             <div className='w-full h-full absolute -inset-1 bg-gradient-to-r from-purple-100 to-orange-900 rounded-lg
                                blur opacity-25 group-hover:opacity-100 transition duration-300'></div>
             <div className='relative w-full p-4 bg-white bg-opacity-10 backdrop-blur-lg rounded-lg'>
-                <img src={project7} alt="project 7" className='rounded-lg md:max-w-[500px]' />
+                <img src={project7} alt="project 7" className='rounded-lg md:max-w-[360px]' />
             </div>
         </div>
 
