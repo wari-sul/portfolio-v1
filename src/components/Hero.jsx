@@ -119,104 +119,104 @@ const Hero = () => {
 
 
       <div className="grid grid-cols-1  md:col-span-3 gap-6">       
-        <div className="text-5xl p-12 glass">
+        <div className="text-4xl sm:text-5xl p-6 sm:p-12 glass">
           <p className="text-gray-200 text-xl font-bold mb-4 text-center">My Tech Stack</p>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
             {/* Wrap each icon with ShinyEffect */}
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
              <DiHtml5 className="text-orange-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiCss3 className="text-blue-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiSass className="text-pink-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiBootstrap className="text-purple-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiJavascript1 className="text-yellow-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiReact className="text-blue-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiNodejsSmall className="text-green-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiCloudflare className="text-orange-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiProxmox className="text-[#E57000]" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiLinux className="text-yellow-200" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiFigma className="text-purple-400" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiNginx className="text-green-400" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiMongodb className="text-green-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiGit className="text-red-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiJava className="text-red-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiKaggle className="text-blue-400" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiApache className="text-red-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiNpm className="text-red-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiOpenstack className="text-red-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiPostgresql className="text-blue-700" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiPython className="text-yellow-300" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <DiStreamline className="text-blue-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiOpengl className="text-blue-400" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiFreebsd className="text-red-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiOpenwrt className="text-blue-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiOpnsense className="text-purple-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiVite className="text-yellow-400" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiOracle className="text-red-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiAmazonwebservices className="text-yellow-500" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <VscAzure className="text-blue-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiAngular className="text-red-600" />
             </ShinyEffect>
-            <ShinyEffect className="hover:scale-110 transition-all duration-300">
+            <ShinyEffect className="hover:scale-110 transition-all duration-300 flex justify-center items-center">
               <SiDocker className="text-blue-500" />
             </ShinyEffect>
              
