@@ -1,5 +1,33 @@
 import React, {useState} from 'react'
-import {AiOutlineClose, AiOutlineMenu} from 'react-icons/ai'
+import { MdOutlineMenu, MdOutlineCloseFullscreen } from "react-icons/md"
+
+const Navbar = () => {
+  const [nav, setNav] = useState(false)
+  const handleNav = () => setNav(!nav)
+
+  return (
+    <div className='text-gray-200 flex justify-between items-center max-w-[1240px] mx-auto h-24 px-4 text-l'>
+      <h1 className='text-3xl font-bold ml-4'>SM WARISUL A. RAFIN</h1>
+      <DesktopMenu />
+      
+      {/* Fixed Hamburger Button */}
+      <button 
+        onClick={handleNav} 
+        className={`z-[100] block md:hidden text-4xl transition-all duration-300 ease-in-out ${
+          nav ? 'fixed right-4 top-7' : 'relative mr-4'
+        }`}
+      >
+        {nav ? (
+          <MdOutlineCloseFullscreen className="text-[#202121] fill-current bg-gradient-to-r from-red-500 via-orange-500 to-purple-600 hover:scale-110 transition-transform duration-300" />
+        ) : (
+          <MdOutlineMenu className="text-[#202121] fill-current bg-gradient-to-r from-red-500 via-orange-500 to-purple-600 hover:scale-110 transition-transform duration-300" />
+        )}
+      </button>
+
+      <MobileMenu nav={nav} />
+    </div>
+  )
+}
 
 const DesktopMenu = () => (
   <ul className='hidden md:flex z-50'>
@@ -23,27 +51,9 @@ const MobileMenu = ({nav}) => (
       <li className='p-2'><a href='#portfolio'>Portfolio</a></li>
       <li className='p-2'><a href='#about'>Skills & Experiences</a></li>                    
       <li className='p-2'><a href='#contact'>Contact</a></li>
-      <li className="p-5">
-        <a href="https://dashboard.warisul.com/" target="_blank" rel="noopener noreferrer">Dashboard</a>
-      </li>
+      <li className="p-2"><a href="https://dashboard.warisul.com/" target="_blank" rel="noopener noreferrer">Dashboard</a></li>
     </ul> 
   </div>
 )
-
-const Navbar = () => {
-  const [nav, setNav] = useState(false)
-  const handleNav = () => setNav(!nav)
-
-  return (
-    <div className='text-gray-200 flex justify-between items-center max-w-[1240px] mx-auto h-24 px-4 text-l'>
-      <h1 className='text-3xl font-bold ml-4'>SM WARISUL A. RAFIN</h1>
-      <DesktopMenu />
-      <div onClick={handleNav} className='z-50 block md:hidden'>
-        {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20}/>}
-      </div>  
-      <MobileMenu nav={nav} />
-    </div>
-  )
-}
 
 export default Navbar

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai'
+//import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai'
 
 const Contact = () => {
     const [formData, setFormData] = useState({

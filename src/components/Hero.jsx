@@ -1,5 +1,6 @@
 import React from "react";
 import profilepic from "../assets/ppic.png";
+import mobileProfilePic from "../assets/ppic-mobile.png";
 import { AiFillLinkedin, AiFillGithub, AiFillInstagram } from "react-icons/ai";
 import { FaTelegram } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
@@ -50,22 +51,30 @@ const Hero = () => {
 
 
 
-      <div className="grid grid-cols-2 md:col-span-5 glass p-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:col-span-5 glass p-8">
+        {/* Mobile Profile Picture */}
+       <div className="block md:hidden mb-8">
+           <img
+             className="w-full max-w-[300px] mx-auto h-auto rounded-full"
+             src={mobileProfilePic}
+             alt="profile pic mobile"
+           />
+         </div>
 
-      <div className="my-auto">
-        <img
-          className="w-[800px] mx-auto h-auto "
-          src={profilepic}
-          alt="profile pic"
-        />
-      </div>
-
+        {/* Desktop Profile Picture */}
+        <div className="hidden md:block my-auto">
+          <img
+            className="w-[800px] mx-auto h-auto"
+            src={profilepic}
+            alt="profile pic"
+          />
+        </div>
 
 
       <div className="my-auto ml-8  flex-col">
         <p className="text-2xl md:text-4xl font-bold text-gray-200">
           Hi! I am <br/> SM WARISUL ALAM RAFIN <br/>
-          <span className="inline-block h-[2em] md:h-[2.5em] overflow-hidden">
+          <span className="inline-block h-[3em] md:h-[2.5em] overflow-hidden">
            <TypeAnimation
                sequence={[
                  "SysOps",
@@ -76,7 +85,7 @@ const Hero = () => {
                  1000,
                  "Network Admin",
                  1000,
-                 "Cloud Security Researcher",
+                 "Security Researcher",
                  1000,
                  "Homelab Enthusiast",
                  1000,
@@ -100,13 +109,13 @@ const Hero = () => {
                wrapper="span"
                speed={50}
                repeat={Infinity}
-               className="block text-lg md:text-2xl lg:text-4xl leading-normal md:leading-relaxed"
+               className="block text-lg md:text-2xl lg:text-4xl leading-loose md:leading-relaxed py-2"
              />
            </span>  
         </p>
 
           <p className="text-xl md:text-3xl font-bold text-gray-500">
-            with a 3+ years experience
+            with a 2+ years experience
           </p>
           <button
            onClick={() => window.open('/', '_blank')}
