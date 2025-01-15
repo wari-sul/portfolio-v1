@@ -65,44 +65,46 @@ const Hero = () => {
       <div className="my-auto ml-8  flex-col">
         <p className="text-2xl md:text-4xl font-bold text-gray-200">
           Hi! I am <br/> SM WARISUL ALAM RAFIN <br/>
+          <span className="inline-block h-[2em] md:h-[2.5em] overflow-hidden">
+           <TypeAnimation
+               sequence={[
+                 "SysOps",
+                 1000,
+                 "Cloud Architect",
+                 1000,
+                 "AI/ML Dev",
+                 1000,
+                 "Network Admin",
+                 1000,
+                 "Cloud Security Researcher",
+                 1000,
+                 "Homelab Enthusiast",
+                 1000,
+                 "DevOps",
+                 1000,
+                 "SRE",
+                 1000,
+                 "Web Dev",
+                 1000,
+                 "Blockchain Dev",
+                 1000,
+                 "Cybersecurity Analyst",
+                 1000,
+                 "Tech Blogger",
+                 1000,
+                 "OSS Contributor",
+                 1000,
+   
+   
+               ]}
+               wrapper="span"
+               speed={50}
+               repeat={Infinity}
+               className="block text-lg md:text-2xl lg:text-4xl leading-normal md:leading-relaxed"
+             />
+           </span>  
+        </p>
 
-        <TypeAnimation
-            sequence={[
-              "SysOps",
-              1000,
-              "Cloud Architect",
-              1000,
-              "AI/ML Dev",
-              1000,
-              "Network Admin",
-              1000,
-              "Cloud Security Researcher",
-              1000,
-              "Homelab Enthusiast",
-              1000,
-              "DevOps Engineer",
-              1000,
-              "SRE",
-              1000,
-              "MERN Stack Dev",
-              1000,
-              "Blockchain Dev",
-              1000,
-              "Cybersecurity Analyst",
-              1000,
-              "Tech Blogger",
-              1000,
-              "Open Source Contributor",
-              1000,
-
-
-            ]}
-            wrapper="span"
-            speed={50}
-            repeat={Infinity}
-          />
-          
-          </p>
           <p className="text-xl md:text-3xl font-bold text-gray-500">
             with a 3+ years experience
           </p>
