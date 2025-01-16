@@ -16,8 +16,8 @@ const projects = [
         description:
           "A prototype of a mobile application for a food delivery service startup.",
         links: {
-          site: "#",
-          github: "#",
+          site: "https://redirect.warisul.com/",
+          github: "https://redirect.warisul.com/",
         },
       },
       {
@@ -25,8 +25,8 @@ const projects = [
         title: "Project #2",
         description: "A MERN stack based frontend application for management of Linux containers and VMs .",
         links: {
-          site: "#",
-          github: "#",
+          site: "https://redirect.warisul.com/",
+          github: "https://redirect.warisul.com/",
         },
       },
       {
@@ -37,6 +37,7 @@ const projects = [
         links: {
           site: "www.warisul.com",
           github: "https://github.com/wari-sul/portfolio-v1", 
+          github: "https://github.com/wari-sul/portfolio-v1", 
         },
       },
       {
@@ -45,7 +46,7 @@ const projects = [
         description:
           "A native Android app for Gemini inspired from telegrams UI/UX design.",
         links: {
-          site: "#",
+          site: "https://redirect.warisul.com/",
           github: "https://github.com/wari-sul/greed-chat",
         },
       },
@@ -54,8 +55,8 @@ const projects = [
         title: "Project #5",
         description: "A telegram bot utilizing Groq API for AI/ML based responses.",
         links: {
-          site: "#",
-          github: "#https://github.com/wari-sul/greed-bot",
+          site: "https://redirect.warisul.com/",
+          github: "https://github.com/wari-sul/greed-bot",
         },
       },
 /*{
