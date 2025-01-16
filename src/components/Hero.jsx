@@ -61,16 +61,18 @@ const Hero = () => {
            />
          </div>
 
-        {/* Desktop Profile Picture */}
-        <div className="hidden md:block my-auto">
-          <img
-            className="w-[800px] mx-auto h-auto"
-            src={profilepic}
-            alt="profile pic"
-          />
-        </div>
-
-
+         <div className="hidden md:block my-auto relative group">
+           <div className="relative">
+             <img
+               className="w-[500px] h-[600px] mx-auto object-cover rounded-full 
+                          transition-all duration-500 ease-in-out
+                          hover:transform hover:scale-[1.02]"
+               src={profilepic}
+               alt="profile pic"
+             />
+           </div>
+         </div>
+       
       <div className="my-auto ml-8  flex-col">
         <p className="text-2xl md:text-4xl font-bold text-gray-200">
           Hi! I am <br/> SM WARISUL ALAM RAFIN <br/>

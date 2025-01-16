@@ -36,7 +36,7 @@ const projects = [
         description: "A responsive portfolio website designed with modern stacks.",
         links: {
           site: "www.warisul.com",
-          github: "#", 
+          github: "https://github.com/wari-sul/portfolio-v1", 
         },
       },
       {
@@ -46,7 +46,7 @@ const projects = [
           "A native Android app for Gemini inspired from telegrams UI/UX design.",
         links: {
           site: "#",
-          github: "#",
+          github: "https://github.com/wari-sul/greed-chat",
         },
       },
       {
@@ -55,7 +55,7 @@ const projects = [
         description: "A telegram bot utilizing Groq API for AI/ML based responses.",
         links: {
           site: "#",
-          github: "#",
+          github: "#https://github.com/wari-sul/greed-bot",
         },
       },
 /*{
