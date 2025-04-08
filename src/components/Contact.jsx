@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import { AiFillLinkedin, AiFillGithub } from 'react-icons/ai'
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -48,54 +47,13 @@ const Contact = () => {
     };
   
     return (
-      <div className='mt-24 px-6 max-w-[1000px] mx-auto grid md:grid-cols-2 place-items-center' id="contact">
-
-
-
-            <div>
-                <div className="p-2">
-                    <div className="text-gray-300 my-3">
-                        <h3 className="text-4xl font-semibold mb-5">About <span>Me</span></h3>
-                        <p className="text-justify leading-7 w-11/12 mx-auto">
-                        I'm a versatile IT professional passionate about building robust and scalable infrastructure. 
-                        My expertise lies in systems administration, virtualization, and containerization, leveraging 
-                        technologies like Proxmox, Docker, and Kubernetes. I excel at automating and optimizing 
-                        infrastructure and thrive in challenging roles, particularly in DevOps or SRE. I'm a continuous 
-                        learner, always expanding my skillset with the latest technologies.
-                        </p>     
-                    </div>
-                </div> 
-                
-
-                <div className="flex mt-10 items-center gap-7">
-                    <div className="bg-[#333333]/40 p-5 rounded-lg">
-                        <h3 className="md:text-4xl text-2xl font-semibold text-white">9
-                            <span>+</span>
-                        </h3>
-                        <p><span className="md:text-base text-xs">Projects</span></p>
-                    </div>
-                    <div className="bg-[#333333]/40 p-5 rounded-lg">
-                        <h3 className="md:text-4xl text-2xl font-semibold text-white">3
-                            <span>+</span>
-                        </h3>
-                        <p><span className="md:text-base text-xs">years experience</span></p>
-                    </div>
-                    <div className="bg-[#333333]/40 p-5 rounded-lg">
-                        <h3 className="md:text-4xl text-2xl font-semibold text-white">11
-                            <span>+</span>
-                        </h3>
-                        <p><span className="md:text-base text-xs">happy clients</span></p>
-                    </div>
-                </div>
-
-
-
-            </div>
+      <div className='mt-24 md:mt-16 px-6 max-w-[1000px] mx-auto grid md:grid-cols-2' id="contact">
 
 
 
 
-            <form onSubmit={handleSubmit} className='max-w-6xl p-5 md:p-12' id="form">
+
+            <form onSubmit={handleSubmit} className='max-w-6xl p-5 md:p-12 md:col-span-2' id="form">
               <p className='text-gray-100 font-bold text-xl mb-2'>Let´s connect!</p>
               
               {error && (
