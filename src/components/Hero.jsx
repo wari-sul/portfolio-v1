@@ -117,7 +117,7 @@ const Hero = () => {
         </p>
 
           <p className="text-xl md:text-3xl font-bold text-gray-500">
-            with a 2+ years experience
+            with a 3+ years experience
           </p>
           <button
            onClick={() => window.open('/', '_blank')}

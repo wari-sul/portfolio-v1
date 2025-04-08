@@ -91,3 +91,19 @@ p {
   width: 80%;
   bottom: -10px;
 }
+
+
+/* Custom Swiper Navigation Button Styles */
+.swiper-button-prev, 
+.swiper-button-next {
+  @apply bg-gradient-to-r from-[#7a0d8a] via-[#c92085] to-[#c68109] rounded-full p-2;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+}
+
+/* Style the arrow icon inside the buttons */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: white; /* Make arrow white */
+  font-size: 1.25rem; /* Adjust arrow size */
+}
