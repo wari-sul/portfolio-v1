@@ -100,7 +100,7 @@ const Portfolio = () => {
                   <ShinyEffect>
                     <img
                       src={project.img}
-                      alt={project.title}
+                      alt={`Portfolio project: ${project.title}`}
                       className='w-full h-auto object-contain max-h-[60vh]' 
                     />
                   </ShinyEffect>

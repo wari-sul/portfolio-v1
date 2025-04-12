@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://warisul.com/sitemap.xml

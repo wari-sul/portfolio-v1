@@ -211,7 +211,7 @@ const About = () => {
         <div className='mb-12'> {/* Added margin-bottom */}
             <div className="p-2">
                 <div className="text-gray-300 my-3 text-center"> {/* Added text-center */}
-                    <h3 className="text-4xl font-semibold mb-5">About <span>Me</span></h3>
+                    <h2 className="text-4xl font-semibold mb-5">About <span>Me</span></h2>
                     <p className="text-justify leading-7 w-11/12 md:w-3/4 mx-auto"> {/* Adjusted width */}
                     I'm a versatile IT professional passionate about building robust and scalable infrastructure.
                     My expertise lies in systems administration, virtualization, and containerization, leveraging
