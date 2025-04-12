@@ -57,7 +57,7 @@ const Hero = () => {
            <img
              className="w-full max-w-[300px] mx-auto h-auto rounded-full"
              src={mobileProfilePic}
-             alt="profile pic mobile"
+             alt="SM Warisul Alam Rafin - Profile Picture (Mobile View)"
            />
          </div>
 
@@ -68,7 +68,7 @@ const Hero = () => {
                           transition-all duration-500 ease-in-out
                           hover:transform hover:scale-[1.02]"
                src={profilepic}
-               alt="profile pic"
+               alt="SM Warisul Alam Rafin - Profile Picture"
              />
            </div>
          </div>
