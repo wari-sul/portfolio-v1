@@ -74,7 +74,7 @@ const Hero = () => {
          </div>
        
       <div className="my-auto ml-8  flex-col">
-        <p className="text-2xl md:text-4xl font-bold text-gray-200">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-200">
           Hi! I am <br/> SM WARISUL ALAM RAFIN <br/>
           <span className="inline-block h-[3em] md:h-[2.5em] overflow-hidden">
            <TypeAnimation
@@ -114,7 +114,7 @@ const Hero = () => {
                className="block text-lg md:text-2xl lg:text-4xl leading-loose md:leading-relaxed py-2"
              />
            </span>  
-        </p>
+        </h1>
 
           <p className="text-xl md:text-3xl font-bold text-gray-500">
             with a 3+ years experience
