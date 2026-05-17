@@ -14,14 +14,13 @@ export const siteConfig = {
     clients: "11+"
   },
   techStack: [
-    { name: "kubernetes" },
-    { name: "terraform" },
-    { name: "aws" },
-    { name: "docker" },
-    { name: "go" },
-    { name: "prometheus" },
-    { name: "linux-tux" },
-    { name: "cloudflare" }
+    { name: "Proxmox", icon: "devicon:proxmox" },
+    { name: "Linux", icon: "devicon:linux" },
+    { name: "Docker", icon: "devicon:docker" },
+    { name: "Cloudflare", icon: "devicon:cloudflare" },
+    { name: "Nginx", icon: "devicon:nginx" },
+    { name: "Python", icon: "devicon:python" },
+    { name: "React", icon: "devicon:react" }
   ],
   jobTitles: [
     "Senior Cloud Architect",

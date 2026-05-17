@@ -66,7 +66,7 @@ import profilePicMobile from '../assets/ppic-mobile.png';
       <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
         {siteConfig.techStack.map((tech, index) => (
           <div class="floating-node shiny-effect-container relative hover:scale-110 transition-transform duration-300 flex justify-center items-center w-12 h-12 mx-auto" style={`animation-delay: ${index * 0.4}s`} title={tech.name}>
-            <Icon name={`logos:${tech.name}`} class="w-10 h-10" />
+            <Icon name={tech.icon} class="w-10 h-10" />
           </div>
         ))}
       </div>          
