@@ -1,6 +1,6 @@
 title: "Project #2"
 description: "A MERN stack based frontend application for management of Linux containers and VMs."
-image: "/assets/project2.png"
+image: "../../assets/project2.png"
 links:
   site: "https://redirect.warisul.com/"
   github: "https://redirect.warisul.com/"

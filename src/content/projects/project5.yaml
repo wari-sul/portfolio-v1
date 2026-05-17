@@ -1,6 +1,6 @@
 title: "Project #5"
 description: "A telegram bot utilizing Groq API for AI/ML based responses."
-image: "/assets/project5.png"
+image: "../../assets/project5.png"
 links:
   site: "https://redirect.warisul.com/"
   github: "https://github.com/wari-sul/greed-bot"

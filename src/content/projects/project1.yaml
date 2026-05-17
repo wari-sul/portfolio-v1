@@ -1,6 +1,6 @@
 title: "Project #1"
 description: "A prototype of a mobile application for a food delivery service startup."
-image: "/assets/project1.png"
+image: "../../assets/project1.png"
 links:
   site: "https://redirect.warisul.com/"
   github: "https://redirect.warisul.com/"

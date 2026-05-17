@@ -1,5 +1,8 @@
 ---
 import { siteConfig } from '../config/site';
+import { Image } from 'astro:assets';
+import profilePic from '../assets/ppic.png';
+import profilePicMobile from '../assets/ppic-mobile.png';
 ---
 
 <div class="max-w-[1200px] mx-auto grid md:grid-cols-8 gap-6 p-10 md:p-0 md:py-40" id="home">
@@ -7,24 +10,24 @@ import { siteConfig } from '../config/site';
   <div class="grid grid-cols-1 md:grid-cols-2 md:col-span-5 glass p-8 relative">
     <!-- Mobile Profile Picture -->
     <div class="block md:hidden mb-8">
-      <img
+      <Image
         class="w-full max-w-[300px] mx-auto h-auto rounded-full"
-        src="/assets/ppic-mobile.png"
+        src={profilePicMobile}
         alt="Profile picture"
-        width="300"
-        height="300"
+        width={300}
+        height={300}
         loading="eager"
       />
     </div>
 
     <div class="hidden md:block my-auto relative group">
       <div class="relative">
-        <img
+        <Image
           class="w-[500px] h-[600px] mx-auto object-cover rounded-full transition-all duration-500 ease-in-out hover:transform hover:scale-[1.02]"
-          src="/assets/ppic.png"
+          src={profilePic}
           alt="Profile picture"
-          width="500"
-          height="600"
+          width={500}
+          height={600}
           loading="eager"
         />
       </div>

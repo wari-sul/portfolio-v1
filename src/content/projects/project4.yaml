@@ -1,6 +1,6 @@
 title: "Project #4"
 description: "A native Android app for Gemini inspired from telegrams UI/UX design."
-image: "/assets/project4.png"
+image: "../../assets/project4.png"
 links:
   site: "https://redirect.warisul.com/"
   github: "https://github.com/wari-sul/greed-chat"
