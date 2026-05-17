@@ -1,0 +1,136 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<div class="max-w-[1200px] mx-auto grid md:grid-cols-8 gap-6 p-10 md:p-0 md:py-40" id="home">
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 md:col-span-5 glass p-8 relative">
+    <!-- Mobile Profile Picture -->
+    <div class="block md:hidden mb-8">
+      <img
+        class="w-full max-w-[300px] mx-auto h-auto rounded-full"
+        src="/assets/ppic-mobile.png"
+        alt="Profile picture"
+        width="300"
+        height="300"
+        loading="eager"
+      />
+    </div>
+
+    <div class="hidden md:block my-auto relative group">
+      <div class="relative">
+        <img
+          class="w-[500px] h-[600px] mx-auto object-cover rounded-full transition-all duration-500 ease-in-out hover:transform hover:scale-[1.02]"
+          src="/assets/ppic.png"
+          alt="Profile picture"
+          width="500"
+          height="600"
+          loading="eager"
+        />
+      </div>
+    </div>
+  
+    <div class="my-auto ml-8 flex-col">
+      <p class="text-2xl md:text-4xl font-bold text-gray-200">
+        Hi! I am <br/> {siteConfig.name} <br/>
+        <span class="inline-block h-[3em] md:h-[2.5em] overflow-hidden">
+          <span id="typing-text" class="block text-lg md:text-2xl lg:text-4xl leading-loose md:leading-relaxed py-2 primary-color-text"></span>
+        </span>  
+      </p>
+
+      <p class="text-xl md:text-3xl font-bold text-gray-500">
+        with {siteConfig.stats.experience} years experience
+      </p>
+      
+      <div class="mt-8 flex gap-4 text-4xl">
+        <a href={siteConfig.links.github} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-200 transition" aria-label="GitHub">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-10 h-10"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+        </a>
+        <a href={siteConfig.links.linkedin} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-gray-200 transition" aria-label="LinkedIn">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-10 h-10"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+        <a href={`mailto:${siteConfig.email}`} class="text-gray-400 hover:text-gray-200 transition" aria-label="Email">
+          <svg fill="currentColor" viewBox="0 0 24 24" class="w-10 h-10"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:col-span-3 gap-6">       
+    <div class="text-4xl sm:text-5xl p-6 sm:p-12 glass">
+      <p class="text-gray-200 text-xl font-bold mb-4 text-center">My Tech Stack</p>
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+        {siteConfig.techStack.map(tech => (
+          <div class="shiny-effect-container relative hover:scale-110 transition-all duration-300 flex justify-center items-center w-12 h-12 mx-auto" title={tech.name}>
+            <img src={`https://cdn.simpleicons.org/${tech.name.toLowerCase()}/fff`} alt={tech.name} class="w-10 h-10" loading="lazy" />
+          </div>
+        ))}
+      </div>          
+    </div>
+  </div>
+
+</div>
+
+<script define:vars={{ titles: siteConfig.jobTitles }}>
+  const textElement = document.getElementById('typing-text');
+  let wordIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function type() {
+    if (!textElement) return;
+    const currentWord = titles[wordIndex];
+    
+    if (isDeleting) {
+      textElement.textContent = currentWord.substring(0, charIndex - 1) + '|';
+      charIndex--;
+    } else {
+      textElement.textContent = currentWord.substring(0, charIndex + 1) + '|';
+      charIndex++;
+    }
+
+    let typeSpeed = isDeleting ? 50 : 100;
+
+    if (!isDeleting && charIndex === currentWord.length) {
+      typeSpeed = 2000;
+      isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % titles.length;
+      typeSpeed = 500;
+    }
+
+    setTimeout(type, typeSpeed);
+  }
+
+  setTimeout(type, 1000);
+</script>
+
+<script>
+  import { gsap } from "gsap";
+  
+  gsap.from("#home .flex-col > *", {
+    y: 30,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power3.out",
+    delay: 0.2
+  });
+
+  gsap.from("#home img.rounded-full", {
+    scale: 0.8,
+    opacity: 0,
+    duration: 1.2,
+    ease: "back.out(1.7)"
+  });
+  
+  gsap.from(".shiny-effect-container", {
+    y: 20,
+    opacity: 0,
+    duration: 0.8,
+    stagger: 0.1,
+    ease: "power2.out",
+    delay: 0.5
+  });
+</script>

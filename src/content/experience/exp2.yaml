@@ -1,0 +1,8 @@
+title: "Cloud Platform Experience"
+duration: "2020 - Present"
+description:
+  - "Deployed applications on AWS (EC2, S3), Oracle Cloud (OCI), and DigitalOcean."
+  - "Managed cloud resources including compute instances, storage, and networking."
+  - "Implemented basic monitoring and alerting."
+result: "Successfully launched and scaled applications/services."
+order: 2

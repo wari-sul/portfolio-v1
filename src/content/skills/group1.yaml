@@ -1,0 +1,13 @@
+groupTitle: "Infrastructure & Cloud"
+order: 1
+skills:
+  - category: "Cloud Platforms"
+    items: ["AWS (EC2, S3, Lambda, CloudFront, Route53)", "Oracle Cloud (OCI, VCN, Object Storage)", "GCP (Compute Engine, Cloud Storage)", "DigitalOcean (Droplets, Spaces)"]
+  - category: "Virtualization"
+    items: ["Proxmox", "KVM"]
+  - category: "Operating Systems"
+    items: ["Linux (Ubuntu, Debian, Fedora, Arch)"]
+  - category: "Networking"
+    items: ["Cisco", "Juniper", "MikroTik", "Ubiquiti"]
+  - category: "Security"
+    items: ["Firewall (OpenWrt, OPNsense)", "IDS/IPS", "VPN", "PKI"]

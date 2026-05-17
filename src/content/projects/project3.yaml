@@ -1,0 +1,7 @@
+title: "Project #3"
+description: "A responsive portfolio website designed with modern stacks."
+image: "/assets/project3.png"
+links:
+  site: "https://www.warisul.com"
+  github: "https://github.com/wari-sul/portfolio-v1"
+order: 3

@@ -1,0 +1,8 @@
+title: "Homelab Infrastructure Management"
+duration: "2020 - Present"
+description:
+  - "Built and maintained a homelab environment using Proxmox."
+  - "Managed virtual machines and containers (LXC)."
+  - "Configured networking (VLANs, routing) and security (firewalls)."
+result: "Gained practical experience in systems administration, networking, and security."
+order: 1

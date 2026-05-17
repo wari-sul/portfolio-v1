@@ -1,0 +1,8 @@
+title: "Automation & Scripting"
+duration: "2020 - Present"
+description:
+  - "Developed Python scripts for automating infrastructure tasks."
+  - "Utilized Bash scripting for system administration automation."
+  - "Integrated scripts with CI/CD pipelines (e.g., GitHub Actions)."
+result: "Reduced manual effort and improved efficiency."
+order: 3

@@ -1,0 +1,14 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<footer class="max-w-[1200px] sm:h-[150px] p-12 flex justify-between items-center mx-auto border-t border-gray-800 mt-12">
+  <span class="primary-color-text font-bold text-xl">{siteConfig.name}</span>
+  <div class="text-right">
+    <a href={`mailto:${siteConfig.email}`} class="text-gray-400 hover:text-gray-200 transition block mb-2">{siteConfig.email}</a>
+    <a href="#home" class="text-gray-500 hover:text-gray-300 transition text-sm flex items-center justify-end gap-1">
+      <span>Back to top</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </a>
+  </div>
+</footer>
