@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '../config/site';
 import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import profilePic from '../assets/ppic.png';
 import profilePicMobile from '../assets/ppic-mobile.png';
 ---
@@ -65,7 +66,7 @@ import profilePicMobile from '../assets/ppic-mobile.png';
       <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
         {siteConfig.techStack.map(tech => (
           <div class="shiny-effect-container relative hover:scale-110 transition-all duration-300 flex justify-center items-center w-12 h-12 mx-auto" title={tech.name}>
-            <img src={`https://cdn.simpleicons.org/${tech.name.toLowerCase()}/fff`} alt={tech.name} class="w-10 h-10" loading="lazy" />
+            <Icon name={`simple-icons:${tech.name.toLowerCase()}`} class="w-10 h-10 text-white" />
           </div>
         ))}
       </div>          
