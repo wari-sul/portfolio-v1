@@ -37,7 +37,7 @@ import profilePicMobile from '../assets/ppic-mobile.png';
     <div class="my-auto ml-8 flex-col">
       <p class="text-2xl md:text-4xl font-bold text-gray-200">
         Hi! I am <br/> {siteConfig.name} <br/>
-        <span class="inline-block h-[3em] md:h-[2.5em] overflow-hidden">
+        <span class="inline-block min-h-[4em] md:min-h-[3em]">
           <span id="typing-text" class="block text-lg md:text-2xl lg:text-4xl leading-loose md:leading-relaxed py-2 primary-color-text"></span>
         </span>  
       </p>
@@ -66,7 +66,7 @@ import profilePicMobile from '../assets/ppic-mobile.png';
       <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
         {siteConfig.techStack.map((tech, index) => (
           <div class="floating-node shiny-effect-container relative hover:scale-110 transition-transform duration-300 flex justify-center items-center w-12 h-12 mx-auto" style={`animation-delay: ${index * 0.4}s`} title={tech.name}>
-            <Icon name={`simple-icons:${tech.name.toLowerCase()}`} class="w-10 h-10 text-white" />
+            <Icon name={`logos:${tech.name}`} class="w-10 h-10" />
           </div>
         ))}
       </div>          

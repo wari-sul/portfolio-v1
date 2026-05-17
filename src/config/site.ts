@@ -14,14 +14,14 @@ export const siteConfig = {
     clients: "11+"
   },
   techStack: [
-    { name: "Kubernetes" },
-    { name: "Terraform" },
-    { name: "AmazonAWS" },
-    { name: "Docker" },
-    { name: "Go" },
-    { name: "Prometheus" },
-    { name: "Linux" },
-    { name: "Cloudflare" }
+    { name: "kubernetes" },
+    { name: "terraform" },
+    { name: "aws" },
+    { name: "docker" },
+    { name: "go" },
+    { name: "prometheus" },
+    { name: "linux-tux" },
+    { name: "cloudflare" }
   ],
   jobTitles: [
     "Senior Cloud Architect",
