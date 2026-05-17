@@ -116,7 +116,8 @@ import profilePicMobile from '../assets/ppic-mobile.png';
   gsap.from("#home .flex-col > *", {
     y: 30,
     opacity: 0,
-    duration: 1,
+    filter: "blur(10px)",
+    duration: 1.2,
     stagger: 0.2,
     ease: "power3.out",
     delay: 0.2
@@ -125,7 +126,8 @@ import profilePicMobile from '../assets/ppic-mobile.png';
   gsap.from("#home img.rounded-full", {
     scale: 0.8,
     opacity: 0,
-    duration: 1.2,
-    ease: "back.out(1.7)"
+    filter: "blur(20px)",
+    duration: 1.5,
+    ease: "power4.out"
   });
 </script>
