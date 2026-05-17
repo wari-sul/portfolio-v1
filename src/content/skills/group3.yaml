@@ -1,15 +1,11 @@
-groupTitle: "DevOps & Tools"
+groupTitle: "Observability & CI/CD"
 order: 3
 skills:
-  - category: "Containerization"
-    items: ["Docker", "Podman", "Kubernetes"]
-  - category: "Automation"
-    items: ["Ansible", "Terraform", "Puppet"]
   - category: "Monitoring"
-    items: ["Prometheus", "Grafana", "ELK Stack"]
-  - category: "CI/CD"
-    items: ["Jenkins", "GitLab CI", "GitHub Actions"]
-  - category: "Version Control"
-    items: ["Git", "GitHub", "npm", "Yarn"]
-  - category: "Web Servers"
-    items: ["Nginx", "Apache", "Caddy"]
+    items: ["Prometheus", "Datadog", "New Relic"]
+  - category: "Logging & Tracing"
+    items: ["ELK Stack", "Grafana Loki", "Jaeger"]
+  - category: "CI/CD Pipelines"
+    items: ["GitHub Actions", "GitLab CI", "Jenkins", "ArgoCD"]
+  - category: "Security"
+    items: ["HashiCorp Vault", "SonarQube", "Open Policy Agent (OPA)"]

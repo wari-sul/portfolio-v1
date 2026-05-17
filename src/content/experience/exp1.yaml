@@ -1,8 +1,8 @@
-title: "Homelab Infrastructure Management"
-duration: "2020 - Present"
+title: "Senior Cloud Architect"
+duration: "2024 - Present"
 description:
-  - "Built and maintained a homelab environment using Proxmox."
-  - "Managed virtual machines and containers (LXC)."
-  - "Configured networking (VLANs, routing) and security (firewalls)."
-result: "Gained practical experience in systems administration, networking, and security."
+  - "Architected and maintained multi-region high-availability Kubernetes clusters on AWS."
+  - "Designed infrastructure as code (IaC) solutions utilizing Terraform and Ansible, ensuring 100% reproducible environments."
+  - "Spearheaded the migration of legacy monoliths to microservices, reducing deployment times by 70%."
+result: "Achieved 99.99% uptime and streamlined the DevOps pipeline for 20+ engineering teams."
 order: 1

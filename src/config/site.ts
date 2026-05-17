@@ -14,20 +14,20 @@ export const siteConfig = {
     clients: "11+"
   },
   techStack: [
-    { name: "Proxmox", icon: "SiProxmox" },
-    { name: "Linux", icon: "DiLinux" },
-    { name: "Docker", icon: "SiDocker" },
-    { name: "Cloudflare", icon: "SiCloudflare" },
-    { name: "Nginx", icon: "DiNginx" },
-    { name: "Python", icon: "DiPython" },
-    { name: "React", icon: "DiReact" }
+    { name: "Kubernetes" },
+    { name: "Terraform" },
+    { name: "AmazonAWS" },
+    { name: "Docker" },
+    { name: "Go" },
+    { name: "Prometheus" },
+    { name: "Linux" },
+    { name: "Cloudflare" }
   ],
   jobTitles: [
-    "SysOps",
-    "Cloud Architect",
-    "DevOps",
-    "Network Admin",
-    "Homelab Enthusiast",
-    "Web Dev"
+    "Senior Cloud Architect",
+    "DevOps Engineer",
+    "Site Reliability Engineer",
+    "Infrastructure Coder",
+    "Platform Engineer"
   ]
 };

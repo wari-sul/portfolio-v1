@@ -1,9 +1,11 @@
-groupTitle: "Development"
+groupTitle: "Infrastructure as Code"
 order: 2
 skills:
+  - category: "Provisioning"
+    items: ["Terraform", "AWS CloudFormation", "Pulumi"]
+  - category: "Configuration Mgmt"
+    items: ["Ansible", "Chef", "Puppet"]
+  - category: "Operating Systems"
+    items: ["Linux (RHEL, Ubuntu, Alpine)", "Proxmox VE"]
   - category: "Programming"
-    items: ["Python", "Bash", "JavaScript", "HTML/CSS"]
-  - category: "Web Development"
-    items: ["React", "Node.js", "Express", "Astro", "TailwindCSS"]
-  - category: "API Development"
-    items: ["RESTful", "GraphQL", "OAuth/JWT", "OpenAPI/Swagger", "gRPC"]
+    items: ["Go", "Python", "Bash", "JavaScript"]

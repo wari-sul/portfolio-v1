@@ -1,8 +1,8 @@
-title: "Automation & Scripting"
-duration: "2020 - Present"
+title: "Systems Administrator"
+duration: "2020 - 2022"
 description:
-  - "Developed Python scripts for automating infrastructure tasks."
-  - "Utilized Bash scripting for system administration automation."
-  - "Integrated scripts with CI/CD pipelines (e.g., GitHub Actions)."
-result: "Reduced manual effort and improved efficiency."
+  - "Administered on-premise Linux environments, leveraging Proxmox and KVM for robust virtualization."
+  - "Automated routine maintenance, backup solutions, and log rotations using Bash and Python scripts."
+  - "Configured and maintained advanced networking hardware (Cisco, MikroTik) and VPN tunnels."
+result: "Optimized on-prem hardware utilization and ensured absolute data redundancy."
 order: 3

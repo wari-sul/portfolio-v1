@@ -41,7 +41,8 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
       <h2 class="text-gray-200 text-3xl font-bold mb-6"><span class="primary-color-text">Skills</span></h2>
       <div class="grid grid-cols-1 gap-4 accordion-group">
         {skillsGroups.map(group => (
-          <div class="glass-card p-5 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300">
+          <div class="glass-card tracking-card p-5 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 overflow-hidden">
+            <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <h3 class="text-xl font-bold text-gray-100 mb-4 flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-gradient-to-r from-[#9d2ba8] to-[#e8a023]"></span>
               {group.data.groupTitle}
@@ -70,8 +71,9 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
       <h2 class="text-gray-200 text-3xl font-bold mb-6"><span class="primary-color-text">Experience</span></h2>
       <div class="space-y-4 accordion-group">
         {experiences.map(exp => (
-          <div class="glass-card p-6 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c92085] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-bl-full"></div>
+          <div class="glass-card tracking-card p-6 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 relative overflow-hidden">
+            <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c92085] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-bl-full pointer-events-none"></div>
             <h3 class="text-xl font-bold text-gray-100 mb-1">{exp.data.title}</h3>
             <ul class="list-disc list-outside ml-4 mt-3 text-sm text-gray-300 space-y-1.5">
               {exp.data.description.map(item => (
@@ -156,5 +158,17 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
     duration: 1,
     stagger: 0.2,
     ease: "power2.out"
+  });
+
+  // Mouse tracking glow effect
+  const trackingCards = document.querySelectorAll('.tracking-card');
+  trackingCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
   });
 </script>

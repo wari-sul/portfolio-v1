@@ -1,8 +1,8 @@
-title: "Cloud Platform Experience"
-duration: "2020 - Present"
+title: "DevOps Engineer"
+duration: "2022 - 2024"
 description:
-  - "Deployed applications on AWS (EC2, S3), Oracle Cloud (OCI), and DigitalOcean."
-  - "Managed cloud resources including compute instances, storage, and networking."
-  - "Implemented basic monitoring and alerting."
-result: "Successfully launched and scaled applications/services."
+  - "Implemented fully automated CI/CD pipelines using GitHub Actions and GitLab CI, deploying immutable Docker containers."
+  - "Built comprehensive observability stacks using Prometheus, Grafana, and ELK, reducing mean time to recovery (MTTR) by 40%."
+  - "Enforced security policies across cloud networks using OPA and strict IAM role governance."
+result: "Standardized release management and fortified cloud infrastructure."
 order: 2
