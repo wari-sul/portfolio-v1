@@ -1,43 +1,34 @@
-# Astro Starter Kit: Minimal
+# 🌟 SM WARISUL A. RAFIN - Elite V3 Portfolio
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Welcome to the **v3-experimental** iteration of my professional portfolio! This site is engineered for maximum performance, striking aesthetics, and elite interactive physics.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## ✨ Features
+- **Interactive 3D WebGL Background**: Custom particle field reacting to mouse movement built with Three.js.
+- **Physical Smooth Scroll**: Lenis inertial scrolling physics.
+- **Luxury Typography**: Typeset in Clash Display (Headings) and Satoshi (Body).
+- **Glassmorphism & Preserve-3D Tilt**: Bento boxes physically tilt with glare based on mouse position.
 
-## 🚀 Project Structure
+## 🚀 Deployment & Environment Variables (IMPORTANT)
 
-Inside of your Astro project, you'll see the following folders and files:
+This project dynamically fetches live stats (Projects, Experience, Clients) securely from a GitHub Gist URL during the build phase. 
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+> [!WARNING]
+> Because `.env` files are ignored by git (for security reasons), your deployment platform (e.g., Cloudflare Pages, Vercel) **will not automatically see your secrets**. 
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Setting up on Cloudflare Pages
+To ensure your stats load correctly in production:
+1. Go to your Cloudflare Dashboard and open this Pages project.
+2. Navigate to **Settings** -> **Environment variables**.
+3. Add a new variable:
+   - **Name**: `GIST_STATS_URL`
+   - **Value**: `https://gist.githubusercontent.com/wari-sul/.../raw/stats.json`
+4. Save and trigger a new deployment. Cloudflare will now securely bake your live stats into the static site!
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
+## 🧞 Development Commands
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run dev`             | Starts local dev server                          |
 | `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| `npm run preview`         | Preview your build locally                       |

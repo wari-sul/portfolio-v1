@@ -2,10 +2,13 @@
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../config/site';
 import { Image } from 'astro:assets';
+import { fetchStats } from '../utils/fetchStats';
 
 const skillsGroups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
 const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
 const featuredProjects = (await getCollection('projects')).filter(p => p.data.featured).sort((a, b) => a.data.order - b.data.order);
+
+const stats = await fetchStats();
 ---
 
 <section class="mt-24 max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-16" id="about">
@@ -21,15 +24,15 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
 
     <div class="flex mt-10 items-center gap-7 justify-center">
       <div class="bg-[#333333]/40 p-5 rounded-lg text-center">
-        <h3 class="md:text-4xl text-2xl font-semibold text-white">{siteConfig.stats.projects}</h3>
+        <h3 class="md:text-4xl text-2xl font-semibold text-white">{stats.projects}</h3>
         <p><span class="md:text-base text-xs">Projects</span></p>
       </div>
       <div class="bg-[#333333]/40 p-5 rounded-lg text-center">
-        <h3 class="md:text-4xl text-2xl font-semibold text-white">{siteConfig.stats.experience}</h3>
+        <h3 class="md:text-4xl text-2xl font-semibold text-white">{stats.experience}</h3>
         <p><span class="md:text-base text-xs">years experience</span></p>
       </div>
       <div class="bg-[#333333]/40 p-5 rounded-lg text-center">
-        <h3 class="md:text-4xl text-2xl font-semibold text-white">{siteConfig.stats.clients}</h3>
+        <h3 class="md:text-4xl text-2xl font-semibold text-white">{stats.clients}</h3>
         <p><span class="md:text-base text-xs">happy clients</span></p>
       </div>
     </div>

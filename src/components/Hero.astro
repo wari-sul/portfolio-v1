@@ -5,6 +5,9 @@ import { Icon } from 'astro-icon/components';
 import profilePic from '../assets/ppic.png';
 import profilePicMobile from '../assets/ppic-mobile.png';
 import TechStackIcon from './TechStackIcon';
+import { fetchStats } from '../utils/fetchStats';
+
+const stats = await fetchStats();
 ---
 
 <div class="max-w-[1200px] mx-auto grid md:grid-cols-8 gap-8 p-6 md:p-0 md:py-32" id="home">
@@ -45,7 +48,7 @@ import TechStackIcon from './TechStackIcon';
       </p>
 
       <p class="text-lg md:text-2xl font-medium text-gray-400 font-sans tracking-wide mt-4">
-        with <span class="text-white font-bold">{siteConfig.stats.experience} years</span> of elite industry experience
+        with <span class="text-white font-bold">{stats.experience} years</span> of elite industry experience
       </p>
       
       <div class="mt-8 flex gap-4 text-4xl">

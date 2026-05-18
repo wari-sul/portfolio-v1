@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "SM WARISUL A. RAFIN",
   title: "SM WARISUL A. RAFIN - Portfolio | SysOps, Cloud, DevOps, Web Dev",
   description: "I'm a versatile IT professional passionate about building robust and scalable infrastructure. Expertise in systems administration, virtualization, and containerization.",
-  email: "your.email@example.com", // Need to update this with actual email
+  email: "contact@warisul.com",
   links: {
     github: "https://github.com/wari-sul",
     linkedin: "https://www.linkedin.com/in/warisul-rafin",
@@ -14,13 +14,14 @@ export const siteConfig = {
     clients: "11+"
   },
   techStack: [
-    { name: "Proxmox", icon: "SiProxmox" },
-    { name: "Linux", icon: "DiLinux" },
+    { name: "Kubernetes", icon: "SiKubernetes" },
+    { name: "Terraform", icon: "SiTerraform" },
+    { name: "AmazonAWS", icon: "FaAws" },
     { name: "Docker", icon: "SiDocker" },
-    { name: "Cloudflare", icon: "SiCloudflare" },
-    { name: "Nginx", icon: "DiNginx" },
-    { name: "Python", icon: "DiPython" },
-    { name: "React", icon: "DiReact" }
+    { name: "Go", icon: "SiGo" },
+    { name: "Prometheus", icon: "SiPrometheus" },
+    { name: "Linux", icon: "DiLinux" },
+    { name: "Cloudflare", icon: "SiCloudflare" }
   ],
   jobTitles: [
     "Senior Cloud Architect",
