@@ -4,11 +4,12 @@ import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import profilePic from '../assets/ppic.png';
 import profilePicMobile from '../assets/ppic-mobile.png';
+import TechStackIcon from './TechStackIcon';
 ---
 
-<div class="max-w-[1200px] mx-auto grid md:grid-cols-8 gap-6 p-10 md:p-0 md:py-40" id="home">
+<div class="max-w-[1200px] mx-auto grid md:grid-cols-8 gap-8 p-6 md:p-0 md:py-32" id="home">
   
-  <div class="grid grid-cols-1 md:grid-cols-2 md:col-span-5 glass p-8 relative">
+  <div class="grid grid-cols-1 md:grid-cols-2 md:col-span-5 glass-card p-10 relative">
     <!-- Mobile Profile Picture -->
     <div class="block md:hidden mb-8">
       <Image
@@ -34,16 +35,17 @@ import profilePicMobile from '../assets/ppic-mobile.png';
       </div>
     </div>
   
-    <div class="my-auto ml-8 flex-col">
-      <p class="text-2xl md:text-4xl font-bold text-gray-200">
-        Hi! I am <br/> {siteConfig.name} <br/>
-        <span class="inline-block min-h-[4em] md:min-h-[3em]">
-          <span id="typing-text" class="block text-lg md:text-2xl lg:text-4xl leading-loose md:leading-relaxed py-2 primary-color-text"></span>
+    <div class="my-auto ml-8 flex-col depth-md">
+      <p class="text-3xl md:text-5xl font-extrabold text-gray-200 font-display tracking-tight leading-none">
+        Hi! I am <br/>
+        <span class="text-5xl md:text-7xl block my-3 text-white font-extrabold font-display">{siteConfig.name}</span>
+        <span class="inline-block min-h-[3em] md:min-h-[2.5em] mt-2">
+          <span id="typing-text" class="block text-xl md:text-3xl lg:text-4xl leading-normal py-1 primary-color-text font-bold"></span>
         </span>  
       </p>
 
-      <p class="text-xl md:text-3xl font-bold text-gray-500">
-        with {siteConfig.stats.experience} years experience
+      <p class="text-lg md:text-2xl font-medium text-gray-400 font-sans tracking-wide mt-4">
+        with <span class="text-white font-bold">{siteConfig.stats.experience} years</span> of elite industry experience
       </p>
       
       <div class="mt-8 flex gap-4 text-4xl">
@@ -61,12 +63,12 @@ import profilePicMobile from '../assets/ppic-mobile.png';
   </div>
 
   <div class="grid grid-cols-1 md:col-span-3 gap-6">       
-    <div class="text-4xl sm:text-5xl p-6 sm:p-12 glass">
-      <p class="text-gray-200 text-xl font-bold mb-4 text-center">My Tech Stack</p>
-      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+    <div class="text-4xl sm:text-5xl p-8 sm:p-12 glass-card flex flex-col justify-center">
+      <p class="text-gray-200 text-2xl font-bold mb-6 text-center font-display depth-md">My Tech Stack</p>
+      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 depth-sm">
         {siteConfig.techStack.map((tech, index) => (
           <div class="floating-node shiny-effect-container relative hover:scale-110 transition-transform duration-300 flex justify-center items-center w-12 h-12 mx-auto" style={`animation-delay: ${index * 0.4}s`} title={tech.name}>
-            <Icon name={tech.icon} class="w-10 h-10" />
+            <TechStackIcon iconName={tech.icon} className="w-10 h-10" />
           </div>
         ))}
       </div>          
@@ -129,22 +131,39 @@ import profilePicMobile from '../assets/ppic-mobile.png';
 
 <script>
   import { gsap } from "gsap";
+  import VanillaTilt from 'vanilla-tilt';
+
+  // Initialize smooth 3D tilt for hero cards
+  const heroCards = document.querySelectorAll('#home .glass-card');
+  VanillaTilt.init(Array.from(heroCards), {
+    max: 8,
+    speed: 800,
+    glare: true,
+    "max-glare": 0.12,
+    perspective: 1200,
+    scale: 1.01,
+  });
   
   gsap.from("#home .flex-col > *", {
-    y: 30,
+    z: -100,
+    rotationX: 15,
+    y: 50,
     opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.2,
-    stagger: 0.2,
-    ease: "power3.out",
-    delay: 0.2
+    filter: "blur(15px)",
+    duration: 1.8,
+    stagger: 0.25,
+    ease: "power4.out",
+    delay: 0.3
   });
 
   gsap.from("#home img.rounded-full", {
-    scale: 0.8,
+    scale: 0.7,
+    rotationY: -20,
+    z: -200,
     opacity: 0,
     filter: "blur(20px)",
-    duration: 1.5,
-    ease: "power4.out"
+    duration: 2.2,
+    ease: "power4.out",
+    delay: 0.1
   });
 </script>

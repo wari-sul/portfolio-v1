@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { siteConfig } from '../config/site';
+import AmbientBackground from '../components/AmbientBackground';
 
 interface Props {
   title?: string;
@@ -38,11 +39,71 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
     <meta property="twitter:image" content="/assets/ppic.png" />
     
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
   </head>
-  <body class="antialiased selection:bg-[#c92085] selection:text-white">
+  <body class="antialiased selection:bg-[#c92085] selection:text-white bg-bg-main">
+    <div class="custom-cursor hidden md:block"></div>
+    <AmbientBackground client:only="react" />
     <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      // Register GSAP ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Initialize Lenis with smooth momentum physics
+      const lenis = new Lenis({
+        duration: 1.4,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+      });
+
+      // Synchronize Lenis with ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      // Custom Cursor with elegant lag tracking
+      const cursor = document.querySelector('.custom-cursor');
+      if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+          gsap.to(cursor, {
+            x: e.clientX,
+            y: e.clientY,
+            duration: 0.15,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        });
+
+        // Dynamic Hover effect
+        const onEnter = () => cursor.classList.add('hovered');
+        const onLeave = () => cursor.classList.remove('hovered');
+
+        const updateHoverables = () => {
+          document.querySelectorAll('a, button, [role="button"], .interactive, .magnetic-btn, .glass-card, .shiny-effect-container').forEach((el) => {
+            el.removeEventListener('mouseenter', onEnter);
+            el.removeEventListener('mouseleave', onLeave);
+            el.addEventListener('mouseenter', onEnter);
+            el.addEventListener('mouseleave', onLeave);
+          });
+        };
+
+        updateHoverables();
+
+        // Re-observe if the DOM updates dynamically
+        const observer = new MutationObserver(updateHoverables);
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    </script>
   </body>
 </html>

@@ -1,8 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Outfit", "Inter", sans-serif;
+  --font-sans: "Satoshi", "Inter", sans-serif;
+  --font-display: "Clash Display", sans-serif;
   --color-bg-main: #0a0a0c;
+}
+
+/* Custom Cursor styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor.hovered {
+  width: 48px;
+  height: 48px;
+  background-color: rgba(255, 255, 255, 1);
+  border-color: transparent;
 }
 
 @keyframes mesh-gradient {
@@ -88,13 +112,25 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   border-radius: 16px;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .glass-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 40px -5px rgba(201, 32, 133, 0.2);
-  border-color: rgba(201, 32, 133, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(201, 32, 133, 0.35);
+  border-color: rgba(201, 32, 133, 0.5);
+}
+
+.depth-sm {
+  transform: translateZ(20px);
+}
+
+.depth-md {
+  transform: translateZ(35px);
+}
+
+.depth-lg {
+  transform: translateZ(50px);
 }
 
 .tracking-card {

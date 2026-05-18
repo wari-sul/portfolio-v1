@@ -4,18 +4,66 @@ import { siteConfig } from '../config/site';
 
 <div class="max-w-[1200px] mx-auto p-6 md:my-20" id="contact">
   <div class="text-center mb-12">
-    <h2 class="text-4xl mb-4 font-bold text-gray-200">
+    <h2 class="text-5xl md:text-6xl mb-4 font-bold font-display text-gray-200 tracking-tight">
       <span class="primary-color-text">Contact</span> Me
     </h2>
-    <p class="text-gray-400">Let's work together</p>
+    <p class="text-gray-400 font-sans text-lg">Let's build something elite together</p>
   </div>
 
-  <div class="max-w-[600px] mx-auto glass p-8 text-center">
-    <p class="text-gray-300 text-lg mb-6">
+  <div class="max-w-[600px] mx-auto glass-card p-10 text-center depth-md">
+    <p class="text-gray-300 text-lg mb-8 font-sans leading-relaxed depth-sm">
       I'm currently available for freelance work and new opportunities. If you have a project that you want to get started, think you need my help with something, or just fancy saying hey, then get in touch!
     </p>
-    <a href={`mailto:${siteConfig.email}`} class="inline-block bg-primary-color text-white font-bold py-4 px-8 rounded-lg hover:opacity-90 transition transform hover:scale-105">
+    <a href={`mailto:${siteConfig.email}`} class="inline-block bg-primary-color text-white font-black py-4 px-8 rounded-full hover:opacity-90 transition transform hover:scale-105 shadow-lg tracking-wide text-sm font-sans depth-md">
       Email Me: {siteConfig.email}
     </a>
   </div>
 </div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import VanillaTilt from 'vanilla-tilt';
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize smooth 3D tilt for contact card
+  const contactCard = document.querySelectorAll('#contact .glass-card');
+  VanillaTilt.init(Array.from(contactCard), {
+    max: 6,
+    speed: 700,
+    glare: true,
+    "max-glare": 0.1,
+    perspective: 1200,
+  });
+
+  gsap.from("#contact .text-center > *", {
+    scrollTrigger: {
+      trigger: "#contact",
+      start: "top 80%",
+    },
+    z: -80,
+    rotationX: 15,
+    y: 40,
+    opacity: 0,
+    filter: "blur(15px)",
+    duration: 1.5,
+    stagger: 0.2,
+    ease: "power4.out"
+  });
+
+  gsap.from("#contact .glass-card", {
+    scrollTrigger: {
+      trigger: "#contact .glass-card",
+      start: "top 85%",
+    },
+    scale: 0.9,
+    rotationX: -10,
+    z: -100,
+    y: 50,
+    opacity: 0,
+    filter: "blur(15px)",
+    duration: 1.6,
+    ease: "power4.out"
+  });
+</script>

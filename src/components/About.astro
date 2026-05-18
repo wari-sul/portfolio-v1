@@ -12,8 +12,8 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
   <div class="mb-12">
     <div class="p-2">
       <div class="text-gray-300 my-3 text-center">
-        <h3 class="text-4xl font-semibold mb-5">About <span class="primary-color-text">Me</span></h3>
-        <p class="text-justify leading-7 w-11/12 md:w-3/4 mx-auto">
+        <h3 class="text-5xl md:text-6xl font-bold tracking-tight font-display mb-6">About <span class="primary-color-text">Me</span></h3>
+        <p class="text-justify leading-8 text-lg w-11/12 md:w-3/4 mx-auto font-sans">
           {siteConfig.description}
         </p>
       </div>
@@ -43,11 +43,11 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
         {skillsGroups.map(group => (
           <div class="glass-card tracking-card p-5 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 overflow-hidden">
             <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <h3 class="text-xl font-bold text-gray-100 mb-4 flex items-center gap-2">
+            <h3 class="text-xl font-bold text-gray-100 mb-4 flex items-center gap-2 depth-md">
               <span class="w-2 h-2 rounded-full bg-gradient-to-r from-[#9d2ba8] to-[#e8a023]"></span>
               {group.data.groupTitle}
             </h3>
-            <div class="space-y-4">
+            <div class="space-y-4 depth-sm">
               {group.data.skills.map(skill => (
                 <div>
                   <h4 class="font-medium text-gray-300 text-sm mb-2">{skill.category}</h4>
@@ -74,8 +74,8 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
           <div class="glass-card tracking-card p-6 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 relative overflow-hidden">
             <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#c92085] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-bl-full pointer-events-none"></div>
-            <h3 class="text-xl font-bold text-gray-100 mb-1">{exp.data.title}</h3>
-            <ul class="list-disc list-outside ml-4 mt-3 text-sm text-gray-300 space-y-1.5">
+            <h3 class="text-xl font-bold text-gray-100 mb-1 depth-md">{exp.data.title}</h3>
+            <ul class="list-disc list-outside ml-4 mt-3 text-sm text-gray-300 space-y-1.5 depth-sm">
               {exp.data.description.map(item => (
                 <li>{item}</li>
               ))}
@@ -118,20 +118,36 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import VanillaTilt from 'vanilla-tilt';
   
   gsap.registerPlugin(ScrollTrigger);
 
+  // Initialize smooth 3D tilt
+  const cards = document.querySelectorAll('.glass-card');
+  VanillaTilt.init(Array.from(cards), {
+    max: 12,
+    speed: 600,
+    glare: true,
+    "max-glare": 0.15,
+    perspective: 1000,
+    scale: 1.02,
+    gyroscope: true,
+  });
+
+  // Expensive 3D GSAP Scroll animation
   gsap.from("#about .mb-12 h3, #about .mb-12 p", {
     scrollTrigger: {
       trigger: "#about",
       start: "top 80%",
     },
-    y: 30,
+    z: -80,
+    rotationX: 25,
+    y: 50,
     opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.2,
+    filter: "blur(15px)",
+    duration: 1.6,
     stagger: 0.2,
-    ease: "power3.out"
+    ease: "power4.out"
   });
 
   gsap.from("#about .bg-\\[\\#333333\\]\\/40", {
@@ -139,25 +155,31 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
       trigger: "#about .flex.mt-10",
       start: "top 85%",
     },
-    scale: 0.9,
-    y: 20,
-    opacity: 0,
-    filter: "blur(10px)",
-    duration: 1,
-    stagger: 0.2,
-    ease: "back.out(1.2)"
-  });
-
-  gsap.from("#about .accordion-group", {
-    scrollTrigger: {
-      trigger: "#about .accordion-group",
-      start: "top 80%",
-    },
+    scale: 0.8,
+    z: -50,
+    rotationY: 15,
     y: 30,
     opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power2.out"
+    filter: "blur(10px)",
+    duration: 1.4,
+    stagger: 0.15,
+    ease: "power3.out"
+  });
+
+  // 3D fold-in animation for bento boxes
+  gsap.from("#about .glass-card", {
+    scrollTrigger: {
+      trigger: "#about .grid.grid-cols-1",
+      start: "top 80%",
+    },
+    rotationX: -15,
+    rotationY: 10,
+    z: -150,
+    y: 60,
+    opacity: 0,
+    duration: 1.5,
+    stagger: 0.15,
+    ease: "power4.out"
   });
 
   // Mouse tracking glow effect
@@ -165,10 +187,10 @@ const featuredProjects = (await getCollection('projects')).filter(p => p.data.fe
   trackingCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+      const x = (e as MouseEvent).clientX - rect.left;
+      const y = (e as MouseEvent).clientY - rect.top;
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
     });
   });
 </script>

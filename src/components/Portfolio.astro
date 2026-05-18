@@ -7,10 +7,10 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 
 <div class="max-w-[1200px] mx-auto p-6 md:my-20" id="portfolio">
   <div class="pb-8">
-    <h2 class="text-4xl mb-4 font-bold text-gray-200">
+    <h2 class="text-5xl md:text-6xl font-bold font-display text-gray-200 mb-4 tracking-tight">
       My <span class="primary-color-text">Portfolio</span>
     </h2>
-    <p class="text-gray-400">Check out some of my recent work</p>
+    <p class="text-gray-400 font-sans text-lg">Check out some of my recent elite works</p>
   </div>
 
   <div class="relative w-full group">
@@ -40,9 +40,9 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
             ) : null}
           </div>
           <div class="p-6 md:p-8 flex-grow flex flex-col relative z-20 -mt-12 bg-gradient-to-t from-[rgba(15,15,18,0.95)] via-[rgba(15,15,18,0.9)] to-transparent">
-            <h3 class="text-2xl font-bold text-white mb-3 tracking-wide">{project.data.title}</h3>
-            <p class="text-gray-400 mb-8 min-h-[3.5rem] leading-relaxed text-sm md:text-base flex-grow">{project.data.description}</p>
-            <div class="flex justify-between items-center mt-auto pt-4 border-t border-white/10">
+            <h3 class="text-2xl font-bold text-white mb-3 tracking-wide font-display depth-md">{project.data.title}</h3>
+            <p class="text-gray-400 mb-8 min-h-[3.5rem] leading-relaxed text-sm md:text-base flex-grow font-sans depth-sm">{project.data.description}</p>
+            <div class="flex justify-between items-center mt-auto pt-4 border-t border-white/10 depth-sm">
               {project.data.links.site && (
                 <a href={project.data.links.site} target="_blank" rel="noopener noreferrer" class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                   Live Demo
@@ -100,19 +100,34 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import VanillaTilt from 'vanilla-tilt';
   
   gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize smooth 3D tilt for project cards
+  const projectCards = document.querySelectorAll('#portfolio .snap-center');
+  VanillaTilt.init(Array.from(projectCards), {
+    max: 10,
+    speed: 500,
+    glare: true,
+    "max-glare": 0.15,
+    perspective: 1200,
+  });
 
   gsap.from("#portfolio .snap-center", {
     scrollTrigger: {
       trigger: "#portfolio-container",
       start: "top 85%",
     },
-    x: 50,
+    rotationX: -10,
+    rotationY: 15,
+    z: -100,
+    y: 60,
     opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.2,
-    stagger: 0.15,
-    ease: "power3.out"
+    filter: "blur(15px)",
+    duration: 1.6,
+    stagger: 0.2,
+    overwrite: 'auto',
+    ease: "power4.out"
   });
 </script>

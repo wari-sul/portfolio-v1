@@ -2,35 +2,33 @@
 import { siteConfig } from '../config/site';
 ---
 
-<nav class="text-gray-200 flex justify-between items-center max-w-[1240px] mx-auto h-24 px-4 text-l z-50 relative">
-  <h1 class="text-3xl font-bold ml-4"><a href="#home">{siteConfig.name}</a></h1>
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-[1200px] h-16 glass z-[9999] px-6 flex justify-between items-center text-gray-200 transition-all duration-300">
+  <h1 class="text-2xl font-black tracking-tight font-display"><a href="#home" class="hover:opacity-90 transition">{siteConfig.name}</a></h1>
   
-  <ul class="hidden md:flex z-50">
-    <li class="p-5"><a href="#portfolio" class="hover:text-gray-400 transition">Portfolio</a></li>
-    <li class="p-5"><a href="#about" class="hover:text-gray-400 transition">Skills & Experiences</a></li>
-    <li class="p-5">
-      <a href="#contact" class="font-bold px-4 py-2 rounded-xl bg-primary-color hover:opacity-90 transition">Contact</a>
-    </li>
-    <li class="p-5">
-      <a href={siteConfig.links.dashboard} target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition">Blog</a>
+  <ul class="hidden md:flex items-center gap-1">
+    <li><a href="#portfolio" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Portfolio</a></li>
+    <li><a href="#about" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Skills & Experience</a></li>
+    <li><a href={siteConfig.links.dashboard} target="_blank" rel="noopener noreferrer" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Blog</a></li>
+    <li class="ml-2">
+      <a href="#contact" class="font-extrabold px-5 py-2.5 rounded-full bg-primary-color hover:opacity-90 transition text-sm tracking-wide">Contact</a>
     </li>
   </ul>
 
   <!-- Mobile Menu Button -->
-  <button id="mobile-menu-btn" class="z-[100] block md:hidden text-4xl mr-4" aria-label="Toggle Menu">
-    <svg id="menu-icon" class="w-8 h-8 text-[#202121] fill-current bg-gradient-to-r from-red-500 via-orange-500 to-purple-600 rounded" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <button id="mobile-menu-btn" class="z-[100] block md:hidden text-3xl" aria-label="Toggle Menu">
+    <svg id="menu-icon" class="w-7 h-7 text-[#202121] fill-current bg-gradient-to-r from-red-500 via-orange-500 to-purple-600 rounded p-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </button>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed left-[-100%] top-0 h-full w-[60%] border-r border-r-gray-900 bg-[#202121] ease-in-out duration-500 z-50">
-    <h1 class="text-3xl primary-color-text m-4 font-bold">{siteConfig.name}</h1>
-    <ul class="p-8 text-2xl">
-      <li class="p-2"><a href="#portfolio" class="mobile-link block hover:text-gray-400 transition">Portfolio</a></li>
-      <li class="p-2"><a href="#about" class="mobile-link block hover:text-gray-400 transition">Skills & Experiences</a></li>
-      <li class="p-2"><a href="#contact" class="mobile-link block hover:text-gray-400 transition">Contact</a></li>
-      <li class="p-2"><a href={siteConfig.links.dashboard} target="_blank" rel="noopener noreferrer" class="block hover:text-gray-400 transition">Blog</a></li>
+  <div id="mobile-menu" class="fixed left-[-100%] top-0 h-screen w-[70%] border-r border-r-gray-900 bg-[#0a0a0c]/95 backdrop-blur-xl ease-in-out duration-500 z-50 flex flex-col justify-center">
+    <h1 class="text-3xl primary-color-text m-6 font-bold font-display text-center">{siteConfig.name}</h1>
+    <ul class="p-8 text-2xl space-y-6 text-center font-sans">
+      <li><a href="#portfolio" class="mobile-link block hover:text-white transition">Portfolio</a></li>
+      <li><a href="#about" class="mobile-link block hover:text-white transition">Skills & Experience</a></li>
+      <li><a href="#contact" class="mobile-link block hover:text-white transition">Contact</a></li>
+      <li><a href={siteConfig.links.dashboard} target="_blank" rel="noopener noreferrer" class="block hover:text-white transition">Blog</a></li>
     </ul>
   </div>
 </nav>

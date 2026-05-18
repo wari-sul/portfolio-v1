@@ -14,13 +14,13 @@ export const siteConfig = {
     clients: "11+"
   },
   techStack: [
-    { name: "Proxmox", icon: "devicon:proxmox" },
-    { name: "Linux", icon: "devicon:linux" },
-    { name: "Docker", icon: "devicon:docker" },
-    { name: "Cloudflare", icon: "devicon:cloudflare" },
-    { name: "Nginx", icon: "devicon:nginx" },
-    { name: "Python", icon: "devicon:python" },
-    { name: "React", icon: "devicon:react" }
+    { name: "Proxmox", icon: "SiProxmox" },
+    { name: "Linux", icon: "DiLinux" },
+    { name: "Docker", icon: "SiDocker" },
+    { name: "Cloudflare", icon: "SiCloudflare" },
+    { name: "Nginx", icon: "DiNginx" },
+    { name: "Python", icon: "DiPython" },
+    { name: "React", icon: "DiReact" }
   ],
   jobTitles: [
     "Senior Cloud Architect",
