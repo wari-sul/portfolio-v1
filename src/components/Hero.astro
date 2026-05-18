@@ -25,27 +25,29 @@ const stats = await fetchStats();
       />
     </div>
 
-    <div class="hidden md:block my-auto relative group">
+  <!-- Desktop Profile Picture - isolated from cursor blend mode -->
+    <div class="hidden md:block my-auto relative group" style="isolation: isolate;">
       <div class="relative">
         <Image
-          class="w-[500px] h-[600px] mx-auto object-cover rounded-full transition-all duration-500 ease-in-out hover:transform hover:scale-[1.02]"
+          class="w-[420px] h-[520px] mx-auto object-cover object-top rounded-2xl transition-all duration-500 ease-in-out hover:scale-[1.02]"
           src={profilePic}
           alt="Profile picture"
-          width={500}
-          height={600}
+          width={840}
+          height={1040}
           loading="eager"
+          quality={100}
         />
       </div>
     </div>
   
-    <div class="my-auto ml-8 flex-col depth-md">
-      <p class="text-3xl md:text-5xl font-extrabold text-gray-200 font-display tracking-tight leading-none">
-        Hi! I am <br/>
-        <span class="text-5xl md:text-7xl block my-3 text-white font-extrabold font-display">{siteConfig.name}</span>
-        <span class="inline-block min-h-[3em] md:min-h-[2.5em] mt-2">
-          <span id="typing-text" class="block text-xl md:text-3xl lg:text-4xl leading-normal py-1 primary-color-text font-bold"></span>
-        </span>  
+    <div class="my-auto ml-6 flex flex-col depth-md min-w-0">
+      <p class="text-xl md:text-2xl font-extrabold text-gray-200 font-display tracking-tight leading-none">
+        Hi! I am
       </p>
+      <span class="text-3xl md:text-4xl lg:text-5xl block my-2 text-white font-extrabold font-display leading-tight break-words">{siteConfig.name}</span>
+      <span class="inline-block min-h-[2.5em] mt-1">
+        <span id="typing-text" class="block text-lg md:text-2xl leading-normal py-1 primary-color-text font-bold"></span>
+      </span>
 
       <p class="text-lg md:text-2xl font-medium text-gray-400 font-sans tracking-wide mt-4">
         with <span class="text-white font-bold">{stats.experience} years</span> of elite industry experience
@@ -159,13 +161,11 @@ const stats = await fetchStats();
     delay: 0.3
   });
 
-  gsap.from("#home img.rounded-full", {
-    scale: 0.7,
-    rotationY: -20,
-    z: -200,
+  gsap.from("#home img", {
+    scale: 0.85,
+    y: 30,
     opacity: 0,
-    filter: "blur(20px)",
-    duration: 2.2,
+    duration: 1.8,
     ease: "power4.out",
     delay: 0.1
   });

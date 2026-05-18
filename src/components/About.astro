@@ -170,18 +170,19 @@ const stats = await fetchStats();
   });
 
   // 3D fold-in animation for bento boxes
+  // Using #about directly as trigger — the class selector was failing to match Tailwind-generated classes
   gsap.from("#about .glass-card", {
     scrollTrigger: {
-      trigger: "#about .grid.grid-cols-1",
-      start: "top 80%",
+      trigger: "#about",
+      start: "top 60%",
     },
-    rotationX: -15,
-    rotationY: 10,
-    z: -150,
-    y: 60,
+    rotationX: -10,
+    rotationY: 8,
+    z: -100,
+    y: 50,
     opacity: 0,
     duration: 1.5,
-    stagger: 0.15,
+    stagger: 0.12,
     ease: "power4.out"
   });
 
