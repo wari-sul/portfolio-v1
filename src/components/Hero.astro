@@ -46,7 +46,7 @@ const stats = await fetchStats();
       </p>
       <span class="text-3xl md:text-4xl lg:text-5xl block my-2 text-white font-extrabold font-display leading-tight break-words">{siteConfig.name}</span>
       <span class="inline-block min-h-[2.5em] mt-1">
-        <span id="typing-text" class="block text-lg md:text-2xl leading-normal py-1 primary-color-text font-bold"></span>
+        <span id="typing-text" class="inline-block text-lg md:text-2xl leading-normal py-1 primary-color-text font-bold typewriter-cursor relative"></span>
       </span>
 
       <p class="text-lg md:text-2xl font-medium text-gray-400 font-sans tracking-wide mt-4">
@@ -68,14 +68,21 @@ const stats = await fetchStats();
   </div>
 
   <div class="grid grid-cols-1 md:col-span-3 gap-6">       
-    <div class="text-4xl sm:text-5xl p-8 sm:p-12 glass-card flex flex-col justify-center">
-      <p class="text-gray-200 text-2xl font-bold mb-6 text-center font-display depth-md">My Tech Stack</p>
-      <div class="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 depth-sm">
-        {siteConfig.techStack.map((tech, index) => (
-          <div class="floating-node shiny-effect-container relative hover:scale-110 transition-transform duration-300 flex justify-center items-center w-12 h-12 mx-auto" style={`animation-delay: ${index * 0.4}s`} title={tech.name}>
-            <TechStackIcon iconName={tech.icon} className="w-10 h-10" />
-          </div>
-        ))}
+    <div class="p-8 sm:p-12 glass-card flex flex-col justify-center items-center">
+      <p class="text-gray-200 text-2xl font-bold mb-8 text-center font-display depth-md">Key Stats</p>
+      <div class="flex flex-col gap-6 w-full max-w-[240px] depth-sm">
+        <div class="bg-[#333333]/40 border border-white/5 backdrop-blur-md p-5 rounded-xl text-center group hover:border-[#e53e9a]/20 transition-all duration-300">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-white font-display primary-color-text leading-none">{stats.projects}</h3>
+          <p class="text-gray-400 text-sm font-sans tracking-wide mt-2">Projects Completed</p>
+        </div>
+        <div class="bg-[#333333]/40 border border-white/5 backdrop-blur-md p-5 rounded-xl text-center group hover:border-[#e53e9a]/20 transition-all duration-300">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-white font-display primary-color-text leading-none">{stats.experience}+</h3>
+          <p class="text-gray-400 text-sm font-sans tracking-wide mt-2">Years Experience</p>
+        </div>
+        <div class="bg-[#333333]/40 border border-white/5 backdrop-blur-md p-5 rounded-xl text-center group hover:border-[#e53e9a]/20 transition-all duration-300">
+          <h3 class="text-3xl md:text-4xl font-extrabold text-white font-display primary-color-text leading-none">{stats.clients}</h3>
+          <p class="text-gray-400 text-sm font-sans tracking-wide mt-2">Happy Clients</p>
+        </div>
       </div>          
     </div>
   </div>
@@ -93,14 +100,14 @@ const stats = await fetchStats();
     const currentWord = titles[wordIndex];
     
     if (isDeleting) {
-      textElement.textContent = currentWord.substring(0, charIndex - 1) + '|';
+      textElement.textContent = currentWord.substring(0, charIndex - 1);
       charIndex--;
     } else {
-      textElement.textContent = currentWord.substring(0, charIndex + 1) + '|';
+      textElement.textContent = currentWord.substring(0, charIndex + 1);
       charIndex++;
     }
 
-    let typeSpeed = isDeleting ? 50 : 100;
+    let typeSpeed = isDeleting ? 40 : 80;
 
     if (!isDeleting && charIndex === currentWord.length) {
       typeSpeed = 2000;
@@ -108,7 +115,7 @@ const stats = await fetchStats();
     } else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       wordIndex = (wordIndex + 1) % titles.length;
-      typeSpeed = 500;
+      typeSpeed = 400;
     }
 
     setTimeout(type, typeSpeed);
