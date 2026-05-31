@@ -94,7 +94,7 @@ const stats = await fetchStats();
   gsap.registerPlugin(ScrollTrigger);
 
   // Initialize smooth 3D tilt
-  const cards = document.querySelectorAll('.glass-card');
+  const cards = document.querySelectorAll('#about .glass-card');
   VanillaTilt.init(Array.from(cards), {
     max: 12,
     speed: 600,
