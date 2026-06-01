@@ -45,26 +45,45 @@ export default function TechStackGrid() {
       }
 
       // Staggered entrance — runs once when section scrolls into view
-      gsap.from('.tech-card', {
-        scrollTrigger: {
-          trigger: '#tech-stack',
-          start: 'top 80%',
-          once: true,
+      gsap.fromTo('.tech-card', 
+        {
+          opacity: 0,
+          y: 40,
+          scale: 0.95,
         },
-        opacity: 0,
-        y: 40,
-        scale: 0.95,
-        stagger: 0.06,
-        duration: 1.2,
-        ease: 'power3.out',
-        // Safety: ensure cards end fully visible even if ScrollTrigger misfires
-        onComplete: () => {
-          document.querySelectorAll('.tech-card').forEach((el) => {
-            (el as HTMLElement).style.opacity = '1';
-            (el as HTMLElement).style.transform = '';
-          });
-        },
-      });
+        {
+          scrollTrigger: {
+            trigger: '#tech-stack',
+            start: 'top 80%',
+            once: true,
+          },
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          stagger: 0.06,
+          duration: 1.2,
+          ease: 'power3.out',
+          clearProps: 'all',
+          onComplete: () => {
+            document.querySelectorAll('.tech-card').forEach((el) => {
+              (el as HTMLElement).style.opacity = '1';
+              (el as HTMLElement).style.transform = 'none';
+            });
+          },
+        }
+      );
+
+      // Safety fallback: ensure cards end fully visible even if ScrollTrigger misfires
+      setTimeout(() => {
+        document.querySelectorAll('.tech-card').forEach((el) => {
+          const htmlEl = el as HTMLElement;
+          if (htmlEl.style.opacity === '0' || window.getComputedStyle(htmlEl).opacity === '0') {
+            gsap.set(htmlEl, { clearProps: "all" });
+            htmlEl.style.opacity = '1';
+            htmlEl.style.transform = 'none';
+          }
+        });
+      }, 2500);
     };
 
     initAnimations();

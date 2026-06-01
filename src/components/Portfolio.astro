@@ -114,28 +114,50 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     perspective: 1200,
   });
 
-  gsap.from("#portfolio .snap-center", {
-    scrollTrigger: {
-      trigger: "#portfolio-container",
-      start: "top 85%",
-      once: true,
+  gsap.fromTo("#portfolio .snap-center", 
+    {
+      rotationX: -10,
+      rotationY: 15,
+      z: -100,
+      y: 60,
+      opacity: 0,
+      filter: "blur(15px)",
     },
-    rotationX: -10,
-    rotationY: 15,
-    z: -100,
-    y: 60,
-    opacity: 0,
-    filter: "blur(15px)",
-    duration: 1.6,
-    stagger: 0.2,
-    overwrite: 'auto',
-    ease: "power4.out",
-    // Ensure cards are always visible even if ScrollTrigger misfires
-    onComplete: () => {
-      document.querySelectorAll('#portfolio .snap-center').forEach((el) => {
-        (el as HTMLElement).style.opacity = '1';
-        (el as HTMLElement).style.filter = '';
-      });
-    },
-  });
+    {
+      scrollTrigger: {
+        trigger: "#portfolio-container",
+        start: "top 85%",
+        once: true,
+      },
+      rotationX: 0,
+      rotationY: 0,
+      z: 0,
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 1.6,
+      stagger: 0.2,
+      overwrite: 'auto',
+      ease: "power4.out",
+      clearProps: "all",
+      onComplete: () => {
+        document.querySelectorAll('#portfolio .snap-center').forEach((el) => {
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.filter = 'none';
+        });
+      }
+    }
+  );
+
+  // Fallback to ensure visibility if ScrollTrigger misfires due to rapid reloads
+  setTimeout(() => {
+    document.querySelectorAll('#portfolio .snap-center').forEach((el) => {
+      const htmlEl = el as HTMLElement;
+      if (htmlEl.style.opacity === '0' || window.getComputedStyle(htmlEl).opacity === '0') {
+        gsap.set(htmlEl, { clearProps: "all" });
+        htmlEl.style.opacity = '1';
+        htmlEl.style.filter = 'none';
+      }
+    });
+  }, 2500);
 </script>
