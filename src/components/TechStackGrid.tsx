@@ -17,8 +17,58 @@ export default function TechStackGrid() {
         setActiveTooltip(null);
       }
     };
-
     document.addEventListener('click', handleOutsideClick);
+
+    // ─── GSAP animation runs HERE (post-hydration) ───────────────────────────
+    // The Astro <script> in TechStack.astro runs before this React island mounts,
+    // so .tech-card elements don't exist yet. By running GSAP inside useEffect we
+    // guarantee cards are in the DOM before we try to animate them.
+    const initAnimations = async () => {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      const VanillaTilt = (await import('vanilla-tilt')).default;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const cards = document.querySelectorAll('.tech-card');
+
+      // VanillaTilt 3D hover effect
+      if (cards.length > 0) {
+        VanillaTilt.init(Array.from(cards) as HTMLElement[], {
+          max: 12,
+          speed: 1000,
+          glare: true,
+          'max-glare': 0.15,
+          perspective: 1000,
+          scale: 1.02,
+        });
+      }
+
+      // Staggered entrance — runs once when section scrolls into view
+      gsap.from('.tech-card', {
+        scrollTrigger: {
+          trigger: '#tech-stack',
+          start: 'top 80%',
+          once: true,
+        },
+        opacity: 0,
+        y: 40,
+        scale: 0.95,
+        stagger: 0.06,
+        duration: 1.2,
+        ease: 'power3.out',
+        // Safety: ensure cards end fully visible even if ScrollTrigger misfires
+        onComplete: () => {
+          document.querySelectorAll('.tech-card').forEach((el) => {
+            (el as HTMLElement).style.opacity = '1';
+            (el as HTMLElement).style.transform = '';
+          });
+        },
+      });
+    };
+
+    initAnimations();
+
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
@@ -32,7 +82,7 @@ export default function TechStackGrid() {
   };
 
   return (
-    <div 
+    <div
       ref={gridRef}
       className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 px-4 md:px-0 max-w-[1000px] mx-auto mt-12"
     >
@@ -49,7 +99,7 @@ export default function TechStackGrid() {
           >
             {/* Ambient neon backdrop glow on hover */}
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/0 via-pink-500/0 to-orange-500/0 group-hover:from-purple-500/5 group-hover:via-pink-500/5 group-hover:to-orange-500/5 transition-all duration-500 ease-out pointer-events-none"></div>
-            
+
             {/* The Logo */}
             <div className="w-14 h-14 flex items-center justify-center text-gray-400 group-hover:text-white transition-colors duration-500 ease-out transform group-hover:scale-110 duration-300">
               <TechStackIcon iconName={tech.icon} className="w-12 h-12" />
@@ -63,8 +113,8 @@ export default function TechStackGrid() {
             {/* Premium Floating Tooltip */}
             <div
               className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-5 rounded-xl border border-white/10 bg-[#121214]/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out z-50 origin-bottom select-none pointer-events-none
-                ${isOpened 
-                  ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible' 
+                ${isOpened
+                  ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible'
                   : 'opacity-0 scale-95 translate-y-2 invisible group-hover:md:opacity-100 group-hover:md:scale-100 group-hover:md:translate-y-0 group-hover:md:pointer-events-auto group-hover:md:visible'
                 }
               `}

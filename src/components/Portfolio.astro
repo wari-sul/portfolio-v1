@@ -118,6 +118,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     scrollTrigger: {
       trigger: "#portfolio-container",
       start: "top 85%",
+      once: true,
     },
     rotationX: -10,
     rotationY: 15,
@@ -128,6 +129,13 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
     duration: 1.6,
     stagger: 0.2,
     overwrite: 'auto',
-    ease: "power4.out"
+    ease: "power4.out",
+    // Ensure cards are always visible even if ScrollTrigger misfires
+    onComplete: () => {
+      document.querySelectorAll('#portfolio .snap-center').forEach((el) => {
+        (el as HTMLElement).style.opacity = '1';
+        (el as HTMLElement).style.filter = '';
+      });
+    },
   });
 </script>

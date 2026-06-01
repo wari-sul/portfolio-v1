@@ -10,16 +10,55 @@ const stats = await fetchStats();
 ---
 
 <section class="mt-24 max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-16" id="about">
-  <div class="mb-16">
-    <div class="p-2">
-      <div class="text-gray-300 my-3 text-center">
-        <h3 class="text-5xl md:text-6xl font-bold tracking-tight font-display mb-8">About <span class="primary-color-text">Me</span></h3>
-        <p class="text-justify md:text-center leading-relaxed text-lg md:text-xl w-11/12 md:w-4/5 mx-auto font-sans text-gray-400 mb-6">
-          {siteConfig.aboutMe.hook}
-        </p>
-        <p class="text-justify md:text-center leading-relaxed text-lg md:text-xl w-11/12 md:w-4/5 mx-auto font-sans text-gray-400">
-          {siteConfig.aboutMe.body}
-        </p>
+  <div class="mb-16" id="about-intro">
+    <!-- Premium About Me intro card -->
+    <div class="relative max-w-3xl mx-auto">
+      <!-- Ambient glow behind card -->
+      <div class="absolute -inset-px rounded-2xl bg-gradient-to-br from-[#9d2ba8]/30 via-[#e53e9a]/20 to-[#e8a023]/30 blur-xl opacity-60 animate-pulse"></div>
+      
+      <!-- Glass card -->
+      <div class="relative glass-card p-8 md:p-12 overflow-hidden about-intro-card">
+        <!-- Animated left accent bar -->
+        <div class="absolute left-0 top-8 bottom-8 w-[3px] rounded-full bg-gradient-to-b from-[#9d2ba8] via-[#e53e9a] to-[#e8a023] about-accent-bar"></div>
+
+        <!-- Subtle grid texture overlay -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <!-- Corner decorative glow -->
+        <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-[#e53e9a]/10 to-transparent rounded-tr-2xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#9d2ba8]/10 to-transparent rounded-bl-2xl pointer-events-none"></div>
+
+        <div class="relative z-10 pl-6">
+          <!-- Section label -->
+          <div class="flex items-center gap-3 mb-6 about-reveal">
+            <span class="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase text-[#e53e9a] font-sans">
+              <span class="w-4 h-px bg-[#e53e9a]"></span>
+              About Me
+            </span>
+          </div>
+
+          <!-- Hook — large, impactful -->
+          <p class="text-2xl md:text-3xl lg:text-4xl font-extrabold font-display text-white leading-tight mb-8 about-reveal" style="text-wrap: balance;">
+            {siteConfig.aboutMe.hook.split(' ').slice(0, 1).join(' ')}<span class="primary-color-text"> {siteConfig.aboutMe.hook.split(' ').slice(1).join(' ')}</span>
+          </p>
+
+          <!-- Divider -->
+          <div class="w-12 h-px bg-gradient-to-r from-[#e53e9a] to-transparent mb-8 about-reveal"></div>
+
+          <!-- Body text — broken into readable flow -->
+          <div class="space-y-4 about-reveal">
+            {siteConfig.aboutMe.body.split('. ').reduce((acc: string[][], sentence: string, i: number) => {
+              const group = Math.floor(i / 3);
+              if (!acc[group]) acc[group] = [];
+              acc[group].push(sentence);
+              return acc;
+            }, []).map((sentences: string[]) => (
+              <p class="text-base md:text-lg text-gray-400 font-sans leading-relaxed">
+                {sentences.join('. ')}{sentences.length > 0 && !sentences[sentences.length - 1].endsWith('.') ? '.' : ''}
+              </p>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -93,57 +132,72 @@ const stats = await fetchStats();
   
   gsap.registerPlugin(ScrollTrigger);
 
-  // Initialize smooth 3D tilt
-  const cards = document.querySelectorAll('#about .glass-card');
-  VanillaTilt.init(Array.from(cards), {
-    max: 12,
-    speed: 600,
-    glare: true,
-    "max-glare": 0.15,
-    perspective: 1000,
-    scale: 1.02,
-    gyroscope: true,
-  });
-
-  // Expensive 3D GSAP Scroll animation
-  gsap.from("#about .mb-12 h3, #about .mb-12 p", {
+  // ─── About Me intro card animation ───────────────────────────────────────
+  // Animate the whole card in from below
+  gsap.from(".about-intro-card", {
     scrollTrigger: {
-      trigger: "#about",
-      start: "top 80%",
-    },
-    z: -80,
-    rotationX: 25,
-    y: 50,
-    opacity: 0,
-    filter: "blur(15px)",
-    duration: 1.6,
-    stagger: 0.2,
-    ease: "power4.out"
-  });
-
-  gsap.from("#about .bg-\\[\\#333333\\]\\/40", {
-    scrollTrigger: {
-      trigger: "#about .flex.mt-10",
+      trigger: "#about-intro",
       start: "top 85%",
+      once: true,
     },
-    scale: 0.8,
-    z: -50,
-    rotationY: 15,
+    y: 60,
+    opacity: 0,
+    scale: 0.97,
+    filter: "blur(8px)",
+    duration: 1.4,
+    ease: "power4.out",
+  });
+
+  // Stagger the internal reveal elements
+  gsap.from(".about-reveal", {
+    scrollTrigger: {
+      trigger: "#about-intro",
+      start: "top 80%",
+      once: true,
+    },
     y: 30,
     opacity: 0,
-    filter: "blur(10px)",
-    duration: 1.4,
+    duration: 1.0,
     stagger: 0.15,
-    ease: "power3.out"
+    ease: "power3.out",
+    delay: 0.3,
   });
 
-  // 3D fold-in animation for bento boxes
-  // Animate each card individually to prevent them from getting stuck at opacity 0 if they are below the fold
-  gsap.utils.toArray("#about .glass-card").forEach((card: any) => {
+  // Accent bar grows from top
+  gsap.from(".about-accent-bar", {
+    scrollTrigger: {
+      trigger: "#about-intro",
+      start: "top 80%",
+      once: true,
+    },
+    scaleY: 0,
+    transformOrigin: "top center",
+    duration: 1.2,
+    ease: "power4.out",
+    delay: 0.2,
+  });
+
+  // Initialize smooth 3D tilt — exclude the intro card to avoid fighting ambient glow
+  const skillCards = document.querySelectorAll('#about .glass-card:not(.about-intro-card)');
+  if (skillCards.length > 0) {
+    VanillaTilt.init(Array.from(skillCards), {
+      max: 12,
+      speed: 600,
+      glare: true,
+      "max-glare": 0.15,
+      perspective: 1000,
+      scale: 1.02,
+      gyroscope: true,
+    });
+  }
+
+  // 3D fold-in animation for skill/experience bento cards individually
+  gsap.utils.toArray("#about .glass-card:not(.about-intro-card)").forEach((card: any) => {
     gsap.from(card, {
       scrollTrigger: {
         trigger: card,
         start: "top 90%",
+        once: true,
       },
       rotationX: -10,
       rotationY: 8,
@@ -151,7 +205,10 @@ const stats = await fetchStats();
       y: 50,
       opacity: 0,
       duration: 1.2,
-      ease: "power4.out"
+      ease: "power4.out",
+      onComplete: () => {
+        card.style.opacity = '1';
+      },
     });
   });
 

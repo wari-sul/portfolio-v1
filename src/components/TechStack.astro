@@ -16,39 +16,5 @@ import TechStackGrid from './TechStackGrid';
   <TechStackGrid client:visible />
 </section>
 
-<script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import VanillaTilt from 'vanilla-tilt';
-
-  // Register ScrollTrigger plugin
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Initialize smooth 3D tilt for tech grid cards
-  const cards = document.querySelectorAll('.tech-card');
-  if (cards.length > 0) {
-    VanillaTilt.init(Array.from(cards) as HTMLElement[], {
-      max: 12,
-      speed: 1000,
-      glare: true,
-      "max-glare": 0.15,
-      perspective: 1000,
-      scale: 1.02,
-    });
-  }
-
-  // Staggered GSAP entrance animation on scroll
-  gsap.from('.tech-card', {
-    scrollTrigger: {
-      trigger: '#tech-stack',
-      start: 'top 80%',
-      toggleActions: 'play none none none'
-    },
-    opacity: 0,
-    y: 40,
-    scale: 0.95,
-    stagger: 0.06,
-    duration: 1.2,
-    ease: 'power3.out'
-  });
-</script>
+<!-- GSAP/VanillaTilt animations are now handled inside TechStackGrid.tsx useEffect
+     to ensure they run AFTER the React island hydrates and .tech-card elements exist in DOM -->
