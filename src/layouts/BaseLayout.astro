@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { siteConfig } from '../config/site';
 import AmbientBackground from '../components/AmbientBackground';
+import ogImage from '../assets/ppic.png';
 
 interface Props {
   title?: string;
@@ -16,7 +17,7 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     
     <!-- Primary Meta Tags -->
@@ -26,17 +27,17 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={siteConfig.links.dashboard} />
+    <meta property="og:url" content={siteConfig.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/assets/ppic.png" />
+    <meta property="og:image" content={ogImage.src} />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={siteConfig.links.dashboard} />
+    <meta property="twitter:url" content={siteConfig.url} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/assets/ppic.png" />
+    <meta property="twitter:image" content={ogImage.src} />
     
     <!-- Fonts -->
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
@@ -58,9 +59,9 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
       const lenis = new Lenis({
         duration: 1.4,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
-        smooth: true,
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
       });
 
       // Synchronize Lenis with ScrollTrigger
@@ -72,23 +73,6 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
           ScrollTrigger.refresh();
         }, 100);
       });
-
-      // Global safety fallback for GSAP + ScrollTrigger FOUC/Stuck issues
-      // If a user reloads the page 2-3 times rapidly, ScrollTrigger can misfire and leave 
-      // elements stuck with inline opacity: 0 from gsap.from() calls.
-      setTimeout(() => {
-        const animatedElements = document.querySelectorAll(
-          '.snap-center, .tech-card, .about-intro-card, .about-reveal, .about-accent-bar, #contact .text-center > *, #contact .glass-card, #home-left-card .animate-in, #home img'
-        );
-        animatedElements.forEach((el) => {
-          const htmlEl = el as HTMLElement;
-          if (htmlEl.style.opacity === '0' || window.getComputedStyle(htmlEl).opacity === '0') {
-            gsap.set(htmlEl, { clearProps: "all" });
-            htmlEl.style.opacity = '1';
-            htmlEl.style.visibility = 'visible';
-          }
-        });
-      }, 3000);
 
       gsap.ticker.add((time) => {
         lenis.raf(time * 1000);
