@@ -75,3 +75,62 @@ single source of truth for what changed, who changed it, and when.
 ## Log entries
 
 _No entries yet. The first agent to complete Instruction 01 appends below this line._
+
+---
+
+## [01] — Baseline and Tooling
+
+- **Agent model:** deepseek-v4-flash (opencode)
+- **Completed:** 2026-08-08T05:25:57Z
+- **Baseline (recorded before any changes):**
+  - `npm run build`: **PASS** (exit 0) — 1 warning: Vite chunk-size warning
+    (some chunks > 500 kB after minification). Node runtime emitted a
+    `DEP0205 module.register() deprecated` DeprecationWarning (Node v26.5.1, harmless).
+    Build time ~4.5s, 1 page. Full output preserved in session log.
+  - `npx astro check`: **5 errors, 0 warnings, 36 hints** (exit 1). Errors:
+    1. `src/components/About.astro:183` — `VanillaTilt.init(Array.from(skillCards))`:
+       `Element[]` not assignable to `HTMLElement[]` (ts2345)
+    2. `src/components/Contact.astro:121` — same VanillaTilt `Element[]` error (ts2345)
+    3. `src/components/Hero.astro:150` — same VanillaTilt `Element[]` error (ts2345)
+    4. `src/components/Portfolio.astro:109` — same VanillaTilt `Element[]` error (ts2345)
+    5. `src/layouts/BaseLayout.astro:61` — Lenis option `direction` does not exist
+       in `LenisOptions` (ts2353, deprecated option — Instruction 04 fixes)
+    Hints (36) include: `z` deprecated (ts6385) across `src/content.config.ts`,
+    unused imports (`Icon`, `TechStackIcon` in Hero.astro, `React` in
+    `AmbientBackground.tsx`/`TechStackIcon.tsx`, `stats` in About.astro, `e` in
+    Hero.astro:138), `frameborder` deprecated (Portfolio.astro:26), and the
+    `define:vars` is:inline hint (Hero.astro:92).
+  - Environment note: host runs Node v26.5.1; `.node-version` pins 22.12.0 and
+    `engines` allows `>=22.12.0` (compatible). No Node version manager is installed
+    on this machine, so switching was not possible. `node_modules` was partially
+    installed (missing `astro-icon`, `@iconify-json/*`); `npm install` (env setup)
+    restored it to match the lockfile with no tracked-file changes.
+- **Changes made:**
+  - Added `"check": "astro check"` script to `package.json` (kept existing scripts).
+  - Renamed package from `portfolio-v2` to `portfolio-v1`.
+  - Moved `@astrojs/check`, `typescript`, `@types/react`, `@types/react-dom`,
+    `@types/three` from `dependencies` to `devDependencies` (version ranges unchanged).
+  - Ran `npm install` to regenerate `package-lock.json` (npm-generated, not hand-edited).
+- **Files modified:**
+  - `package.json` [modified]
+  - `package-lock.json` [modified]
+  - `tracking/TRACKING.md` [modified]
+- **Summary:** Wired up `astro check` as a first-class npm script so type checking is
+  runnable via `npm run check`, corrected the stale package name, and moved five
+  build-time-only packages into `devDependencies` so the runtime surface is honest.
+  Baseline build/check results recorded above; later instructions will be measured
+  against these exact numbers.
+- **Verification:**
+  - `npm run build`: PASS — exit 0, 1 warning (chunk > 500 kB), identical result to baseline.
+  - `npm run check`: PASS (script runs) — error count matches baseline exactly: 5 errors, 0 warnings, 36 hints.
+  - Manual checks: `git diff package.json` shows only the four intended changes
+    (name, script, dependency relocation); `npm install` completed cleanly; `overrides`
+    and `engines` blocks untouched.
+- **Follow-ups:**
+  - Node runtime is v26.5.1 vs. pinned 22.12.0 (no version manager installed);
+    note for the record only — build/check behave identically.
+  - `npm audit` reports 19 vulnerabilities (2 low, 4 moderate, 12 high, 1 critical).
+    Not addressed — out of scope for this instruction set (no `npm audit fix` per constraints).
+  - `npm install` warns that esbuild/sharp/workerd install scripts are not covered by
+    `allowScripts`; build works, so no action taken.
+
