@@ -267,5 +267,100 @@ _No entries yet. The first agent to complete Instruction 01 appends below this l
     fixes are Instruction 04's scope). YAML revalidation implicit in build success.
 - **Follow-ups:** None
 
+---
+
+## [04] — Logic and Correctness Bugs
+
+- **Agent model:** deepseek-v4-flash (opencode)
+- **Completed:** 2026-08-08T05:40:25Z
+- **Changes made:**
+  - **4.1** `BaseLayout.astro`: favicon → `/favicon.svg` (exists in `public/`); OG and
+    Twitter images now use the asset pipeline (`import ogImage from '../assets/ppic.png'`,
+    `content={ogImage.src}`) instead of the 404ing `/assets/ppic.png`.
+  - **4.2** `site.ts`: added `url: "https://warisul.com/"` above `links`; `BaseLayout.astro`
+    og:url + twitter:url now use `siteConfig.url` instead of `links.dashboard`.
+  - **4.3** `site.ts`: Hugging Face tech icon key `"hugging-face"` → `"huggingface"`
+    (matches the `svgMap` key; fixes the rendered "?").
+  - **4.4** `TechStackIcon.tsx`: replaced the corrupted `apache-kafka` SVG (had
+    `30.flies`, negative out-of-viewBox coords) with the official simple-icons mark
+    (slug `apachekafka`, fetched from `https://simpleicons.org/icons/apachekafka.svg`,
+    `viewBox="0 0 24 24"`, single `currentColor` path). No invented data.
+  - **4.5** `TechStackIcon.tsx`: `uid` now derived from React `useId()` (stripped of
+    non-alphanumerics) so SVG gradient/mask IDs are unique per component INSTANCE,
+    not per icon name; comment updated.
+  - **4.6** Root-fixed the GSAP visibility bug across 6 files — every entrance
+    animation converted to `gsap.fromTo(...)` with `immediateRender: false` (elements
+    stay visible until their trigger fires; a misfiring trigger now degrades to
+    "no animation", never "invisible content"):
+    - `BaseLayout.astro`: deleted the 3s "Global safety fallback" setTimeout block.
+    - `Hero.astro`: both `gsap.from` → `fromTo` (load-triggered, no scrollTrigger).
+    - `About.astro`: all 4 animations → `fromTo`; removed the per-card `onComplete`
+      opacity hack.
+    - `Contact.astro`: both animations → `fromTo` + `once: true` added to their
+      scrollTriggers (previously re-animated every scroll-past).
+    - `Portfolio.astro`: added `immediateRender: false`, removed `onComplete` hack
+      and the 2.5s fallback setTimeout.
+    - `TechStackGrid.tsx`: added `immediateRender: false`, removed `onComplete` hack
+      and the 2.5s "Safety fallback" setTimeout.
+    Durations, eases, staggers, filters, and delays preserved throughout.
+  - **4.7** `index.astro` now fetches stats once (`const stats = await fetchStats()`) and
+    passes `<Hero stats={stats} />` / `<About stats={stats} />`; both components take a
+    typed `stats: PortfolioStats` prop instead of importing/calling `fetchStats` —
+    one Gist request per build instead of two.
+  - **4.8** `BaseLayout.astro`: Lenis options migrated to the v1 API — `direction` →
+    `orientation`, `gestureDirection` → `gestureOrientation`, `smooth` → `smoothWheel`
+    (kills the ts2353 type error).
+  - **4.9** `Navbar.astro`: `#mobile-menu` now uses `-translate-x-full` +
+    `data-open:translate-x-0` (state-driven Tailwind variants, verified compiled in
+    `dist/_astro/*.css` as `[data-open]`); script rewritten to set/remove the
+    `data-open` attribute and `aria-expanded` instead of toggling literal
+    class-name strings (`relative`/`mr-4` no-ops dropped); `aria-expanded="false"`
+    added to the toggle button markup.
+  - **4.10** `Contact.astro`: frontmatter logs a warning when
+    `PUBLIC_STATICFORMS_KEY` is unset; hidden `apiKey` input only rendered when the
+    key exists; removed `novalidate` so native browser validation blocks empty/invalid
+    input; silent `return` replaced with showing the error banner.
+- **Files modified:**
+  - `src/layouts/BaseLayout.astro` [modified]
+  - `src/config/site.ts` [modified]
+  - `src/components/TechStackIcon.tsx` [modified]
+  - `src/components/Hero.astro` [modified]
+  - `src/components/About.astro` [modified]
+  - `src/components/Contact.astro` [modified]
+  - `src/components/Portfolio.astro` [modified]
+  - `src/components/TechStackGrid.tsx` [modified]
+  - `src/components/Navbar.astro` [modified]
+  - `src/pages/index.astro` [modified]
+  - `tracking/TRACKING.md` [modified]
+- **Summary:** Fixed the favicon/OG 404s and wrong og:url, the Hugging Face "?"
+  icon, the corrupted Kafka path, and the duplicated SVG def IDs; replaced the fragile
+  `gsap.from` + setTimeout fallback pattern with `fromTo` + `immediateRender: false`
+  everywhere so rapid reloads can never leave content at opacity 0; deduplicated the
+  Gist stats fetch; migrated Lenis to its current options; made the mobile menu
+  state-driven; and hardened the contact form (native validation, visible errors,
+  API-key guard).
+- **Verification:**
+  - `npm run build`: PASS — exit 0, 1 warning (chunk > 500 kB), same as baseline.
+  - `npm run check`: PASS (improved) — **4 errors, 0 warnings, 32 hints** (baseline:
+    5 errors). Lenis ts2353 gone; the 4 remaining ts2345 errors are the pre-existing
+    `VanillaTilt.init(Array.from(...))` `Element[]` mismatches (About.astro:210,
+    Contact.astro:124, Hero.astro:152, Portfolio.astro:109) — fixed by Instruction 05's
+    shared `initTilt` utility.
+  - Manual checks: `dist/index.html` verified — favicon `/favicon.svg`, og:url
+    `https://warisul.com/`, og:image + twitter:image `/_astro/ppic.dgNeyWcS.png`
+    (hashed). `npm run preview`: 4 rapid reloads all HTTP 200, zero errors in server
+    log. Grep gates (4.6 quality standard): `setTimeout` in `src/` only in
+    Hero.astro typing delays + BaseLayout ScrollTrigger refresh delay (allowed);
+    `gsap.from(` only in Contact.astro's post-submit success-state animation
+    (intentional, not an entrance animation); `gsap.fromTo` present in all 6 animation
+    files. Built CSS contains `data-open\:translate-x-0[data-open]` selector.
+- **Follow-ups:**
+  - Per instruction: flag that `siteConfig.url = "https://warisul.com/"` should be
+    confirmed against the production domain by the owner.
+  - Contact.astro's success-state `gsap.from('#contact-success > *')` (fires only after
+    a successful submit, never on load) was left as-is — not part of the six-file
+    entrance-animation scope.
+
+
 
 

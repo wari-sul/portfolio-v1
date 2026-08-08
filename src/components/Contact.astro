@@ -1,6 +1,9 @@
 ---
 import { siteConfig } from '../config/site';
 const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
+if (!accessKey) {
+  console.warn('[Contact] PUBLIC_STATICFORMS_KEY is not set — form submissions will fail.');
+}
 ---
 
 <div class="max-w-[1200px] mx-auto p-6 md:my-20" id="contact">
@@ -30,9 +33,9 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     </div>
 
     <!-- Form -->
-    <form id="contact-form" novalidate>
+    <form id="contact-form">
       <!-- StaticForms required hidden fields -->
-      <input type="hidden" name="apiKey" value={accessKey} />
+      {accessKey && <input type="hidden" name="apiKey" value={accessKey} />}
       <!-- replyTo is intentionally omitted: StaticForms will use the email field automatically -->
 
       <!-- Honeypot Spam Protection — must stay empty -->
@@ -126,35 +129,58 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     perspective: 1200,
   });
 
-  gsap.from("#contact .text-center > *", {
-    scrollTrigger: {
-      trigger: "#contact",
-      start: "top 80%",
+  gsap.fromTo("#contact .text-center > *",
+    {
+      z: -80,
+      rotationX: 15,
+      y: 40,
+      opacity: 0,
+      filter: "blur(15px)",
     },
-    z: -80,
-    rotationX: 15,
-    y: 40,
-    opacity: 0,
-    filter: "blur(15px)",
-    duration: 1.5,
-    stagger: 0.2,
-    ease: "power4.out"
-  });
+    {
+      scrollTrigger: {
+        trigger: "#contact",
+        start: "top 80%",
+        once: true,
+      },
+      z: 0,
+      rotationX: 0,
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 1.5,
+      stagger: 0.2,
+      ease: "power4.out",
+      immediateRender: false,
+    }
+  );
 
-  gsap.from("#contact .glass-card", {
-    scrollTrigger: {
-      trigger: "#contact .glass-card",
-      start: "top 85%",
+  gsap.fromTo("#contact .glass-card",
+    {
+      scale: 0.9,
+      rotationX: -10,
+      z: -100,
+      y: 50,
+      opacity: 0,
+      filter: "blur(15px)",
     },
-    scale: 0.9,
-    rotationX: -10,
-    z: -100,
-    y: 50,
-    opacity: 0,
-    filter: "blur(15px)",
-    duration: 1.6,
-    ease: "power4.out"
-  });
+    {
+      scrollTrigger: {
+        trigger: "#contact .glass-card",
+        start: "top 85%",
+        once: true,
+      },
+      scale: 1,
+      rotationX: 0,
+      z: 0,
+      y: 0,
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 1.6,
+      ease: "power4.out",
+      immediateRender: false,
+    }
+  );
 
   // Form submission
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
@@ -172,7 +198,10 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
 
-    if (!name || !email || !message) return;
+    if (!name || !email || !message) {
+      errorEl?.classList.remove('hidden');
+      return;
+    }
 
     // Show loading state
     submitLabel?.classList.add('hidden');
