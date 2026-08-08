@@ -7,12 +7,15 @@ import TechStack from '../components/TechStack.astro';
 import Portfolio from '../components/Portfolio.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { fetchStats } from '../utils/fetchStats';
+
+const stats = await fetchStats();
 ---
 
 <BaseLayout>
   <Navbar />
-  <Hero />
-  <About />
+  <Hero stats={stats} />
+  <About stats={stats} />
   <TechStack />
   <Portfolio />
   <Contact />

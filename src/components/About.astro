@@ -1,12 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import { siteConfig } from '../config/site';
-import { fetchStats } from '../utils/fetchStats';
+import type { PortfolioStats } from '../utils/fetchStats';
+
+interface Props {
+  stats: PortfolioStats;
+}
+
+const { stats } = Astro.props;
 
 const skillsGroups = (await getCollection('skills')).sort((a, b) => a.data.order - b.data.order);
 const experiences = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
-
-const stats = await fetchStats();
 ---
 
 <section class="mt-24 max-w-[1200px] mx-auto px-4 md:px-6 py-12 md:py-16" id="about">
@@ -134,48 +138,71 @@ const stats = await fetchStats();
 
   // ─── About Me intro card animation ───────────────────────────────────────
   // Animate the whole card in from below
-  gsap.from(".about-intro-card", {
-    scrollTrigger: {
-      trigger: "#about-intro",
-      start: "top 85%",
-      once: true,
+  gsap.fromTo(".about-intro-card",
+    {
+      y: 60,
+      opacity: 0,
+      scale: 0.97,
+      filter: "blur(8px)",
     },
-    y: 60,
-    opacity: 0,
-    scale: 0.97,
-    filter: "blur(8px)",
-    duration: 1.4,
-    ease: "power4.out",
-  });
+    {
+      scrollTrigger: {
+        trigger: "#about-intro",
+        start: "top 85%",
+        once: true,
+      },
+      y: 0,
+      opacity: 1,
+      scale: 1,
+      filter: "blur(0px)",
+      duration: 1.4,
+      ease: "power4.out",
+      immediateRender: false,
+    }
+  );
 
   // Stagger the internal reveal elements
-  gsap.from(".about-reveal", {
-    scrollTrigger: {
-      trigger: "#about-intro",
-      start: "top 80%",
-      once: true,
+  gsap.fromTo(".about-reveal",
+    {
+      y: 30,
+      opacity: 0,
     },
-    y: 30,
-    opacity: 0,
-    duration: 1.0,
-    stagger: 0.15,
-    ease: "power3.out",
-    delay: 0.3,
-  });
+    {
+      scrollTrigger: {
+        trigger: "#about-intro",
+        start: "top 80%",
+        once: true,
+      },
+      y: 0,
+      opacity: 1,
+      duration: 1.0,
+      stagger: 0.15,
+      ease: "power3.out",
+      delay: 0.3,
+      immediateRender: false,
+    }
+  );
 
   // Accent bar grows from top
-  gsap.from(".about-accent-bar", {
-    scrollTrigger: {
-      trigger: "#about-intro",
-      start: "top 80%",
-      once: true,
+  gsap.fromTo(".about-accent-bar",
+    {
+      scaleY: 0,
+      transformOrigin: "top center",
     },
-    scaleY: 0,
-    transformOrigin: "top center",
-    duration: 1.2,
-    ease: "power4.out",
-    delay: 0.2,
-  });
+    {
+      scrollTrigger: {
+        trigger: "#about-intro",
+        start: "top 80%",
+        once: true,
+      },
+      scaleY: 1,
+      transformOrigin: "top center",
+      duration: 1.2,
+      ease: "power4.out",
+      delay: 0.2,
+      immediateRender: false,
+    }
+  );
 
   // Initialize smooth 3D tilt — exclude the intro card to avoid fighting ambient glow
   const skillCards = document.querySelectorAll('#about .glass-card:not(.about-intro-card)');
@@ -193,23 +220,30 @@ const stats = await fetchStats();
 
   // 3D fold-in animation for skill/experience bento cards individually
   gsap.utils.toArray("#about .glass-card:not(.about-intro-card)").forEach((card: any) => {
-    gsap.from(card, {
-      scrollTrigger: {
-        trigger: card,
-        start: "top 90%",
-        once: true,
+    gsap.fromTo(card,
+      {
+        rotationX: -10,
+        rotationY: 8,
+        z: -100,
+        y: 50,
+        opacity: 0,
       },
-      rotationX: -10,
-      rotationY: 8,
-      z: -100,
-      y: 50,
-      opacity: 0,
-      duration: 1.2,
-      ease: "power4.out",
-      onComplete: () => {
-        card.style.opacity = '1';
-      },
-    });
+      {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+          once: true,
+        },
+        rotationX: 0,
+        rotationY: 0,
+        z: 0,
+        y: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power4.out",
+        immediateRender: false,
+      }
+    );
   });
 
   // Mouse tracking glow effect

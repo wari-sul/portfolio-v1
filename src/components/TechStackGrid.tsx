@@ -64,26 +64,9 @@ export default function TechStackGrid() {
           duration: 1.2,
           ease: 'power3.out',
           clearProps: 'all',
-          onComplete: () => {
-            document.querySelectorAll('.tech-card').forEach((el) => {
-              (el as HTMLElement).style.opacity = '1';
-              (el as HTMLElement).style.transform = 'none';
-            });
-          },
+          immediateRender: false,
         }
       );
-
-      // Safety fallback: ensure cards end fully visible even if ScrollTrigger misfires
-      setTimeout(() => {
-        document.querySelectorAll('.tech-card').forEach((el) => {
-          const htmlEl = el as HTMLElement;
-          if (htmlEl.style.opacity === '0' || window.getComputedStyle(htmlEl).opacity === '0') {
-            gsap.set(htmlEl, { clearProps: "all" });
-            htmlEl.style.opacity = '1';
-            htmlEl.style.transform = 'none';
-          }
-        });
-      }, 2500);
     };
 
     initAnimations();
