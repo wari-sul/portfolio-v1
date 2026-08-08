@@ -40,6 +40,8 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
     <meta property="twitter:image" content={ogImage.src} />
     
     <!-- Fonts -->
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
   </head>
   <body class="antialiased selection:bg-[#c92085] selection:text-white bg-bg-main">
@@ -49,11 +51,7 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
 
     <script>
       import Lenis from 'lenis';
-      import { gsap } from 'gsap';
-      import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-      // Register GSAP ScrollTrigger
-      gsap.registerPlugin(ScrollTrigger);
+      import { gsap, ScrollTrigger } from '../utils/animations';
 
       // Initialize Lenis with smooth momentum physics
       const lenis = new Lenis({

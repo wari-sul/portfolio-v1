@@ -130,11 +130,7 @@ const experiences = (await getCollection('experience')).sort((a, b) => a.data.or
 
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import VanillaTilt from 'vanilla-tilt';
-  
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, initTilt } from '../utils/animations';
 
   // ─── About Me intro card animation ───────────────────────────────────────
   // Animate the whole card in from below
@@ -205,18 +201,7 @@ const experiences = (await getCollection('experience')).sort((a, b) => a.data.or
   );
 
   // Initialize smooth 3D tilt — exclude the intro card to avoid fighting ambient glow
-  const skillCards = document.querySelectorAll('#about .glass-card:not(.about-intro-card)');
-  if (skillCards.length > 0) {
-    VanillaTilt.init(Array.from(skillCards), {
-      max: 12,
-      speed: 600,
-      glare: true,
-      "max-glare": 0.15,
-      perspective: 1000,
-      scale: 1.02,
-      gyroscope: true,
-    });
-  }
+  initTilt('#about .glass-card:not(.about-intro-card)', { max: 12, speed: 600, maxGlare: 0.15, perspective: 1000, scale: 1.02, gyroscope: true });
 
   // 3D fold-in animation for skill/experience bento cards individually
   gsap.utils.toArray("#about .glass-card:not(.about-intro-card)").forEach((card: any) => {

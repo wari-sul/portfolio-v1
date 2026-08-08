@@ -1,10 +1,10 @@
 import React, { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import { AdditiveBlending, type Points as ThreePoints } from 'three';
 
 function ParticleField() {
-  const ref = useRef<THREE.Points>(null);
+  const ref = useRef<ThreePoints>(null);
 
   // Generate beautiful random points in a sphere/box
   const sphere = useMemo(() => {
@@ -48,7 +48,7 @@ function ParticleField() {
           size={0.06}
           sizeAttenuation={true}
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={AdditiveBlending}
           opacity={0.7}
         />
       </Points>

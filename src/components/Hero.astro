@@ -37,7 +37,6 @@ const { stats } = Astro.props;
           width={840}
           height={1040}
           loading="eager"
-          quality={100}
         />
       </div>
     </div>
@@ -144,19 +143,10 @@ const { stats } = Astro.props;
 </script>
 
 <script>
-  import { gsap } from "gsap";
-  import VanillaTilt from 'vanilla-tilt';
+  import { gsap, initTilt } from '../utils/animations';
 
   // Initialize smooth 3D tilt for hero cards
-  const heroCards = document.querySelectorAll('#home .glass-card');
-  VanillaTilt.init(Array.from(heroCards), {
-    max: 8,
-    speed: 800,
-    glare: true,
-    "max-glare": 0.12,
-    perspective: 1200,
-    scale: 1.01,
-  });
+  initTilt('#home .glass-card', { max: 8, speed: 800, maxGlare: 0.12, perspective: 1200, scale: 1.01 });
   
   // Only animate the LEFT card's text children — NOT the Key Stats panel
   gsap.fromTo("#home-left-card .animate-in",

@@ -23,6 +23,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
             {project.data.videoUrl ? (
               <iframe
                 src={project.data.videoUrl}
+                loading="lazy"
                 frameborder="0"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                 class="w-full h-full object-cover relative z-0"
@@ -98,21 +99,10 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 </script>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import VanillaTilt from 'vanilla-tilt';
-  
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, initTilt } from '../utils/animations';
 
   // Initialize smooth 3D tilt for project cards
-  const projectCards = document.querySelectorAll('#portfolio .snap-center');
-  VanillaTilt.init(Array.from(projectCards), {
-    max: 10,
-    speed: 500,
-    glare: true,
-    "max-glare": 0.15,
-    perspective: 1200,
-  });
+  initTilt('#portfolio .snap-center', { max: 10, speed: 500, maxGlare: 0.15, perspective: 1200 });
 
   gsap.fromTo("#portfolio .snap-center", 
     {

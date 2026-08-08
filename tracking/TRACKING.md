@@ -361,6 +361,72 @@ _No entries yet. The first agent to complete Instruction 01 appends below this l
     a successful submit, never on load) was left as-is — not part of the six-file
     entrance-animation scope.
 
+---
+
+## [05] — Performance
+
+- **Agent model:** deepseek-v4-flash (opencode)
+- **Completed:** 2026-08-08T05:46:18Z
+- **Changes made:**
+  - **5.1** `AmbientBackground.tsx`: `import * as THREE from 'three'` →
+    `import { AdditiveBlending, type Points as ThreePoints } from 'three'`;
+    `blending={AdditiveBlending}`. Adaptation note: the audit claimed no other `THREE.`
+    usages, but `useRef<THREE.Points>` (line 7) was a type-only usage — kept via the
+    inline type import. The `Points` name collides with drei's `<Points>` value import,
+    so the three type is aliased `ThreePoints`. `grep "THREE\."` now returns nothing.
+  - **5.2** Created `src/utils/animations.ts` (framework-free): registers
+    `ScrollTrigger` once, re-exports `gsap`/`ScrollTrigger`, and exports a typed
+    `initTilt(selector, options)` wrapper around `VanillaTilt.init` (glare always on,
+    `max`/`speed`/`max-glare`/`perspective` defaults 10/700/0.12/1200, `scale` and
+    `gyroscope` only passed when defined). All six animation files now route through it:
+    - `Hero.astro`: `initTilt('#home .glass-card', { max: 8, speed: 800, maxGlare: 0.12, perspective: 1200, scale: 1.01 })`
+    - `About.astro`: `initTilt('#about .glass-card:not(.about-intro-card)', { max: 12, speed: 600, maxGlare: 0.15, perspective: 1000, scale: 1.02, gyroscope: true })`
+    - `Contact.astro`: `initTilt('#contact .glass-card', { max: 6, speed: 700, maxGlare: 0.1, perspective: 1200 })`
+    - `Portfolio.astro`: `initTilt('#portfolio .snap-center', { max: 10, speed: 500, maxGlare: 0.15, perspective: 1200 })`
+    - `TechStackGrid.tsx`: keeps the dynamic `import('../utils/animations')` (deferred
+      until hydration) with `initTilt('.tech-card', { max: 12, speed: 1000, maxGlare: 0.15, perspective: 1000, scale: 1.02 })`
+    - `BaseLayout.astro`: `import { gsap, ScrollTrigger } from '../utils/animations'`
+      (no tilt needed there)
+    Per-section tilt numbers preserved exactly as before.
+  - **5.3** `Portfolio.astro`: Vimeo iframe now has `loading="lazy"` (verified in
+    `dist/index.html`).
+  - **5.4** `Hero.astro`: removed `quality={100}` from the desktop profile `<Image>` —
+    emitted webp dropped from 46 kB to **15 kB** (build log: `before: 193kB, after: 15kB`;
+    the 193 kB is the source PNG).
+  - **5.5** `BaseLayout.astro`: added
+    `<link rel="preconnect" href="https://api.fontshare.com" crossorigin />` and
+    `https://cdn.fontshare.com` directly above the Fontshare stylesheet link.
+- **Files modified:**
+  - `src/utils/animations.ts` [created]
+  - `src/components/AmbientBackground.tsx` [modified]
+  - `src/components/Hero.astro` [modified]
+  - `src/components/About.astro` [modified]
+  - `src/components/Contact.astro` [modified]
+  - `src/components/Portfolio.astro` [modified]
+  - `src/components/TechStackGrid.tsx` [modified]
+  - `src/layouts/BaseLayout.astro` [modified]
+  - `tracking/TRACKING.md` [modified]
+- **Summary:** Removed the whole-namespace Three.js import (tree-shaking friendliness),
+  consolidated GSAP/ScrollTrigger registration and VanillaTilt setup into one typed,
+  framework-free utility (killing the duplication drift between five tilt configs and
+  incidentally fixing all four remaining `astro check` errors), deferred the Vimeo
+  player cost until the carousel nears the viewport, dropped forced 100% image quality
+  for a 31 kB-per-page saving, and preconnected both Fontshare hosts so the TLS
+  handshake starts early.
+- **Verification:**
+  - `npm run build`: PASS — exit 0, 1 warning (chunk > 500 kB), build time ~4.0s,
+    `dist/` = 9.0M (no baseline dist size was recorded in Instruction 01, so no delta
+    available — noted for the record).
+  - `npm run check`: PASS — **0 errors, 0 warnings, 32 hints** (baseline was 5 errors;
+    all four VanillaTilt `Element[]` ts2345 errors are gone via the typed `initTilt`).
+  - Manual checks: `grep -rn "VanillaTilt.init" src/` matches ONLY
+    `src/utils/animations.ts:22`; `grep -rn "registerPlugin" src/` matches ONLY
+    `src/utils/animations.ts:5` (both quality standards met). `dist/index.html`
+    contains both Fontshare preconnects, `loading="lazy"` on the Vimeo iframes, and the
+    shrunken `ppic` webp. `npm run preview`: HTTP 200, no errors in server log.
+- **Follow-ups:** None
+
+
 
 
 

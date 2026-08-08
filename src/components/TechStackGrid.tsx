@@ -24,24 +24,13 @@ export default function TechStackGrid() {
     // so .tech-card elements don't exist yet. By running GSAP inside useEffect we
     // guarantee cards are in the DOM before we try to animate them.
     const initAnimations = async () => {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      const VanillaTilt = (await import('vanilla-tilt')).default;
-
-      gsap.registerPlugin(ScrollTrigger);
+      const { gsap, initTilt } = await import('../utils/animations');
 
       const cards = document.querySelectorAll('.tech-card');
 
       // VanillaTilt 3D hover effect
       if (cards.length > 0) {
-        VanillaTilt.init(Array.from(cards) as HTMLElement[], {
-          max: 12,
-          speed: 1000,
-          glare: true,
-          'max-glare': 0.15,
-          perspective: 1000,
-          scale: 1.02,
-        });
+        initTilt('.tech-card', { max: 12, speed: 1000, maxGlare: 0.15, perspective: 1000, scale: 1.02 });
       }
 
       // Staggered entrance — runs once when section scrolls into view

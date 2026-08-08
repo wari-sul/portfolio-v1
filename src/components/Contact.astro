@@ -113,21 +113,10 @@ if (!accessKey) {
 </style>
 
 <script>
-  import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-  import VanillaTilt from 'vanilla-tilt';
-
-  gsap.registerPlugin(ScrollTrigger);
+  import { gsap, initTilt } from '../utils/animations';
 
   // Initialize smooth 3D tilt for contact card
-  const contactCard = document.querySelectorAll('#contact .glass-card');
-  VanillaTilt.init(Array.from(contactCard), {
-    max: 6,
-    speed: 700,
-    glare: true,
-    "max-glare": 0.1,
-    perspective: 1200,
-  });
+  initTilt('#contact .glass-card', { max: 6, speed: 700, maxGlare: 0.1, perspective: 1200 });
 
   gsap.fromTo("#contact .text-center > *",
     {
