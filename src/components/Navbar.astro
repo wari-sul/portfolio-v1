@@ -21,17 +21,19 @@ import { siteConfig } from '../config/site';
     </svg>
   </button>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed top-0 h-screen w-[70%] border-r border-r-gray-900 bg-[#0a0a0c]/95 backdrop-blur-xl transition-transform duration-500 ease-in-out z-50 flex flex-col justify-center -translate-x-full data-open:translate-x-0">
-    <span class="text-3xl primary-color-text m-6 font-bold font-display text-center">{siteConfig.name}</span>
-    <ul class="p-8 text-2xl space-y-6 text-center font-sans">
-      <li><a href="#portfolio" class="mobile-link block hover:text-white transition">Portfolio</a></li>
-      <li><a href="#about" class="mobile-link block hover:text-white transition">Skills & Experience</a></li>
-      <li><a href="#contact" class="mobile-link block hover:text-white transition">Contact</a></li>
-      <li><a href={siteConfig.links.blog} target="_blank" rel="noopener noreferrer" class="block hover:text-white transition">Blog</a></li>
-    </ul>
-  </div>
 </nav>
+
+<!-- Mobile Menu — kept OUTSIDE the <nav>: the nav's transform/backdrop-filter would
+     otherwise become the containing block for this fixed element, breaking the off-canvas translate -->
+<div id="mobile-menu" class="fixed top-0 h-screen w-[70%] border-r border-r-gray-900 bg-[#0a0a0c]/95 backdrop-blur-xl transition-transform duration-500 ease-in-out z-50 flex flex-col justify-center -translate-x-full data-open:translate-x-0 md:hidden">
+  <span class="text-3xl primary-color-text m-6 font-bold font-display text-center">{siteConfig.name}</span>
+  <ul class="p-8 text-2xl space-y-6 text-center font-sans">
+    <li><a href="#portfolio" class="mobile-link block hover:text-white transition">Portfolio</a></li>
+    <li><a href="#about" class="mobile-link block hover:text-white transition">Skills & Experience</a></li>
+    <li><a href="#contact" class="mobile-link block hover:text-white transition">Contact</a></li>
+    <li><a href={siteConfig.links.blog} target="_blank" rel="noopener noreferrer" class="block hover:text-white transition">Blog</a></li>
+  </ul>
+</div>
 
 <script>
   const btn = document.getElementById('mobile-menu-btn');
