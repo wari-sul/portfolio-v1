@@ -1,0 +1,110 @@
+# Instruction 01 — Baseline and Tooling
+
+**Instruction ID:** 01
+**Prerequisite:** Instruction 00 read and environment setup completed.
+
+---
+
+## 1. Issues identified
+
+| #   | Issue                                                                                       | Location        |
+| --- | ------------------------------------------------------------------------------------------- | --------------- |
+| 1.1 | No `check` script even though `@astrojs/check` is installed                                  | `package.json`  |
+| 1.2 | Package `name` is `portfolio-v2` but the repository is `portfolio-v1`                        | `package.json`  |
+| 1.3 | Build/tooling packages live in `dependencies` instead of `devDependencies`                   | `package.json`  |
+| 1.4 | No recorded baseline of build/type-check output to measure later fixes against               | (process gap)   |
+
+## 2. Problem explanation
+
+- **1.1** `@astrojs/check` provides the `astro check` command (Astro + TypeScript static
+  analysis). It is installed but never wired to an npm script, so nobody can run type
+  checking with a memorable command. Type errors may be silently accumulating.
+- **1.2** The wrong package name is confusing for tooling output, lockfiles, and anyone
+  inspecting the project. It is a leftover from an earlier iteration.
+- **1.3** Packages that are only needed while *developing or building* (type checkers,
+  compilers, type declarations) belong in `devDependencies`. Putting them in `dependencies`
+  misrepresents the runtime surface of the project and bloats production installs for
+  anyone consuming this package metadata.
+- **1.4** Later instructions fix warnings and errors. Without a recorded baseline, you
+  cannot prove a fix improved things. Recording it now costs one minute.
+
+## 3. Step-by-step fix instructions
+
+### Step 1 — Record the baseline (do NOT fix anything yet)
+
+1. Open a terminal at `/home/warisul/Documents/GitHub/portfolio-v1`.
+2. Run `npm run build` and copy the full output.
+3. Run `npx astro check` and copy the full output.
+4. Save both outputs in your tracking entry for this instruction (section 5 of
+   `tracking/TRACKING.md`) under a **Baseline** note. Count and record:
+   - number of build warnings/errors,
+   - number of `astro check` errors, hints, and warnings.
+5. If the build already fails, STOP and record the failure in the tracking file, then
+   continue — later instructions assume a working build, so flag it loudly.
+
+### Step 2 — Add the missing `check` script
+
+1. Open `package.json`.
+2. In the `"scripts"` object, add this line (keep existing scripts, alphabetical order
+   is not required — match existing formatting, 2-space indent):
+   ```json
+   "check": "astro check",
+   ```
+3. Save. Verify: run `npm run check`. It should execute `astro check` (errors in the
+   output are expected at this stage; the point is that the script runs).
+
+### Step 3 — Fix the package name
+
+1. In `package.json`, change:
+   ```json
+   "name": "portfolio-v2",
+   ```
+   to:
+   ```json
+   "name": "portfolio-v1",
+   ```
+2. Save.
+
+### Step 4 — Move tooling packages to `devDependencies`
+
+1. In `package.json`, move the following entries from `"dependencies"` to
+   `"devDependencies"` **without changing their version ranges**:
+   - `@astrojs/check`
+   - `typescript`
+   - `@types/react`
+   - `@types/react-dom`
+   - `@types/three`
+2. The existing `devDependencies` block already contains `@types/offscreencanvas`,
+   `@types/react-reconciler`, and `@types/webxr` — merge the moved entries into that
+   block, keeping one valid JSON object (no duplicate keys, no trailing commas).
+3. Leave ALL other packages in `dependencies` untouched. Do not move `astro`, `react`,
+   `tailwindcss`, `@tailwindcss/vite`, `@astrojs/react`, `astro-icon`, `gsap`, `lenis`,
+   `vanilla-tilt`, `three`, `@react-three/*`, `react-icons`, or the `@iconify-json/*`
+   packages in this instruction — their cleanup belongs to Instructions 02 and 03.
+4. Save, then run:
+   ```bash
+   npm install
+   ```
+   This refreshes `package-lock.json` to reflect the moved packages. Commit the lockfile
+   change together with this instruction.
+
+### Step 5 — Verify
+
+1. `npm run build` — must exit with code 0 and produce the same result as the baseline.
+2. `npm run check` — must run (error count should match the baseline; fixing those
+   errors happens in later instructions).
+3. `git diff package.json` — confirm only the four changes above appear.
+
+## 4. Strict constraints
+
+- Do NOT change any version numbers or ranges.
+- Do NOT delete any dependency in this instruction (removals happen in 02 and 03).
+- Do NOT touch the `"overrides"` block or the `"engines"` block.
+- Do NOT run `npm update` or `npm audit fix`.
+- Do NOT reformat `package.json` beyond the edits described (keep 2-space indentation).
+
+## 5. Quality standards
+
+- `package.json` must remain valid JSON — validate by running `npm install` successfully.
+- The lockfile (`package-lock.json`) must be regenerated by npm itself, never hand-edited.
+- Baseline numbers in the tracking file must be exact (copy-paste counts, not estimates).
