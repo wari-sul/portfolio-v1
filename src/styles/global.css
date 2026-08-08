@@ -48,6 +48,18 @@
     animation: mesh-gradient 20s ease infinite;
     color: white;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    body {
+      animation: none;
+    }
+  }
 }
 
 @keyframes float {
@@ -57,7 +69,7 @@
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
-.floating-node {
+.glow-badge {
   animation: float 6s ease-in-out infinite;
 }
 
@@ -147,12 +159,4 @@
 .tracking-card > * {
   position: relative;
   z-index: 1;
-}
-
-.shiny-effect {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle, rgba(201, 32, 133, 0.4), transparent 70%);
 }

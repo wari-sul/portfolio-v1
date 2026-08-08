@@ -23,7 +23,6 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
             {project.data.videoUrl ? (
               <iframe
                 src={project.data.videoUrl}
-                frameborder="0"
                 allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
                 class="w-full h-full object-cover relative z-0"
                 title={project.data.title}
@@ -104,16 +103,21 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
   
   gsap.registerPlugin(ScrollTrigger);
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
   // Initialize smooth 3D tilt for project cards
   const projectCards = document.querySelectorAll('#portfolio .snap-center');
-  VanillaTilt.init(Array.from(projectCards), {
+  VanillaTilt.init(Array.from(projectCards) as HTMLElement[], {
     max: 10,
     speed: 500,
     glare: true,
     "max-glare": 0.15,
     perspective: 1200,
   });
+  }
 
+  if (!prefersReducedMotion) {
   gsap.fromTo("#portfolio .snap-center", 
     {
       rotationX: -10,
@@ -148,6 +152,7 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
       }
     }
   );
+  }
 
   // Fallback to ensure visibility if ScrollTrigger misfires due to rapid reloads
   setTimeout(() => {

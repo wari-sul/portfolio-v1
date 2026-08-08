@@ -1,10 +1,8 @@
 ---
 import { siteConfig } from '../config/site';
 import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
 import profilePic from '../assets/ppic.png';
 import profilePicMobile from '../assets/ppic-mobile.png';
-import TechStackIcon from './TechStackIcon';
 import { fetchStats } from '../utils/fetchStats';
 
 const stats = await fetchStats();
@@ -35,7 +33,8 @@ const stats = await fetchStats();
           width={840}
           height={1040}
           loading="eager"
-          quality={100}
+          quality={80}
+          format={'avif'}
         />
       </div>
     </div>
@@ -46,7 +45,7 @@ const stats = await fetchStats();
       </p>
       <span class="animate-in text-3xl md:text-4xl lg:text-5xl block my-2 text-white font-extrabold font-display leading-tight break-words">{siteConfig.name}</span>
       <span class="animate-in block min-h-[3.5rem] mt-1 overflow-hidden">
-        <span id="typing-text" class="inline text-lg md:text-xl leading-normal py-1 primary-color-text font-bold typewriter-cursor relative"></span>
+        <span id="typing-text" class="inline text-lg md:text-xl leading-normal py-1 primary-color-text font-bold relative"></span>
       </span>
 
       <p class="animate-in text-lg md:text-xl font-medium text-gray-400 font-sans tracking-wide mt-4">
@@ -90,6 +89,10 @@ const stats = await fetchStats();
 </div>
 
 <script define:vars={{ titles: siteConfig.jobTitles }}>
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const textElement = document.getElementById('typing-text');
+    if (textElement) textElement.textContent = titles[0];
+  } else {
   const textElement = document.getElementById('typing-text');
   let wordIndex = 0;
   let charIndex = 0;
@@ -122,6 +125,7 @@ const stats = await fetchStats();
   }
 
   setTimeout(type, 1000);
+  }
 
   // Magnetic Button Effect
   const magnets = document.querySelectorAll('.magnetic-btn');
@@ -145,9 +149,12 @@ const stats = await fetchStats();
   import { gsap } from "gsap";
   import VanillaTilt from 'vanilla-tilt';
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
   // Initialize smooth 3D tilt for hero cards
   const heroCards = document.querySelectorAll('#home .glass-card');
-  VanillaTilt.init(Array.from(heroCards), {
+  VanillaTilt.init(Array.from(heroCards) as HTMLElement[], {
     max: 8,
     speed: 800,
     glare: true,
@@ -155,8 +162,10 @@ const stats = await fetchStats();
     perspective: 1200,
     scale: 1.01,
   });
+  }
   
   // Only animate the LEFT card's text children — NOT the Key Stats panel
+  if (!prefersReducedMotion) {
   gsap.from("#home-left-card .animate-in", {
     z: -100,
     rotationX: 15,
@@ -177,4 +186,5 @@ const stats = await fetchStats();
     ease: "power4.out",
     delay: 0.1
   });
+  }
 </script>

@@ -1,6 +1,14 @@
 ---
 import { siteConfig } from '../config/site';
 const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
+
+if (!accessKey) {
+  console.warn(
+    '⚠️  PUBLIC_STATICFORMS_KEY is not set. The contact form will fail to submit.\n' +
+    '    Set it in your .env file or deployment environment variables.\n' +
+    '    Get your key at https://www.staticforms.xyz'
+  );
+}
 ---
 
 <div class="max-w-[1200px] mx-auto p-6 md:my-20" id="contact">
@@ -13,7 +21,7 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
 
   <div class="max-w-[680px] mx-auto glass-card p-8 md:p-10 depth-md">
     <!-- Success State -->
-    <div id="contact-success" class="hidden text-center py-12">
+    <div id="contact-success" class="hidden text-center py-12" role="alert">
       <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-[#9d2ba8] to-[#e8a023] flex items-center justify-center">
         <svg class="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
@@ -24,7 +32,7 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     </div>
 
     <!-- Error State -->
-    <div id="contact-error" class="hidden mb-6 px-5 py-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-sm font-sans">
+    <div id="contact-error" class="hidden mb-6 px-5 py-4 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-sm font-sans" role="alert">
       Something went wrong. Please try again or email me directly at
       <a href={`mailto:${siteConfig.email}`} class="underline ml-1">{siteConfig.email}</a>.
     </div>
@@ -116,16 +124,21 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
 
   gsap.registerPlugin(ScrollTrigger);
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
   // Initialize smooth 3D tilt for contact card
   const contactCard = document.querySelectorAll('#contact .glass-card');
-  VanillaTilt.init(Array.from(contactCard), {
+  VanillaTilt.init(Array.from(contactCard) as HTMLElement[], {
     max: 6,
     speed: 700,
     glare: true,
     "max-glare": 0.1,
     perspective: 1200,
   });
+  }
 
+  if (!prefersReducedMotion) {
   gsap.from("#contact .text-center > *", {
     scrollTrigger: {
       trigger: "#contact",
@@ -155,6 +168,7 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     duration: 1.6,
     ease: "power4.out"
   });
+  }
 
   // Form submission
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
@@ -172,7 +186,11 @@ const accessKey = import.meta.env.PUBLIC_STATICFORMS_KEY;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
 
-    if (!name || !email || !message) return;
+    if (!name || !email || !message) {
+      errorEl?.classList.remove('hidden');
+      errorEl!.textContent = 'Please fill in all fields before submitting.';
+      return;
+    }
 
     // Show loading state
     submitLabel?.classList.add('hidden');

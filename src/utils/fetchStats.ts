@@ -15,8 +15,13 @@ export async function fetchStats(): Promise<PortfolioStats> {
   }
 
   try {
-    // We add a timestamp query parameter to prevent caching during build
-    const response = await fetch(`${gistUrl}?t=${Date.now()}`);
+    // Use URL constructor + searchParams for robust cache-busting
+    const url = new URL(gistUrl);
+    url.searchParams.set('t', Date.now().toString());
+    
+    const response = await fetch(url.toString(), {
+      signal: AbortSignal.timeout(5000),
+    });
     if (!response.ok) {
       throw new Error(`Failed to fetch stats: ${response.statusText}`);
     }

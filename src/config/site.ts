@@ -2,6 +2,7 @@ export const siteConfig = {
   name: "SM WARISUL A. RAFIN",
   title: "SM WARISUL A. RAFIN | AI Platform & Cloud Infrastructure Engineer",
   description: "I bridge the gap between artificial intelligence and heavy infrastructure. I design, secure, and deploy end-to-end solutions, from fine-tuning LLMs and building RAG pipelines to architecting zero-trust Kubernetes clusters and edge networks.",
+  siteUrl: "https://warisul.com",
   email: "contact@warisul.com",
   links: {
     github: "https://github.com/wari-sul",
@@ -36,7 +37,7 @@ export const siteConfig = {
     },
     {
       name: "Hugging Face",
-      icon: "hugging-face",
+      icon: "huggingface",
       skills: [
         "Model Hub integration & API pipelines",
         "Transformers & PyTorch implementation",

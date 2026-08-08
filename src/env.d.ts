@@ -2,8 +2,8 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly PUBLIC_STATICFORMS_KEY: string;
-  readonly GIST_STATS_URL: string;
+  readonly PUBLIC_STATICFORMS_KEY?: string;
+  readonly GIST_STATS_URL?: string;
 }
 
 interface ImportMeta {

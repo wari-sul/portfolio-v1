@@ -5,11 +5,13 @@ import TechStackIcon from './TechStackIcon';
 export default function TechStackGrid() {
   const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
   const [isTouch, setIsTouch] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Detect touch capability
+    // Detect touch capability and motion preference
     setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
     // Close tooltip on tap outside
     const handleOutsideClick = (e: MouseEvent) => {
@@ -24,6 +26,8 @@ export default function TechStackGrid() {
     // so .tech-card elements don't exist yet. By running GSAP inside useEffect we
     // guarantee cards are in the DOM before we try to animate them.
     const initAnimations = async () => {
+      if (prefersReducedMotion) return;
+      
       const { gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       const VanillaTilt = (await import('vanilla-tilt')).default;
@@ -91,11 +95,18 @@ export default function TechStackGrid() {
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   const handleCardClick = (e: React.MouseEvent, index: number) => {
     if (isTouch) {
       e.stopPropagation();
+      setActiveTooltip(activeTooltip === index ? null : index);
+    }
+  };
+
+  const handleCardKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
       setActiveTooltip(activeTooltip === index ? null : index);
     }
   };
@@ -111,8 +122,13 @@ export default function TechStackGrid() {
           <div
             key={tech.name}
             className="tech-card relative group flex flex-col items-center justify-center p-8 rounded-2xl glass-card border border-white/5 bg-white/5 backdrop-blur-md cursor-pointer hover:border-pink-500/30 transition-all duration-500 ease-out select-none"
+            role="button"
+            tabIndex={0}
+            aria-expanded={isOpened}
+            aria-label={`${tech.name} — click for skills`}
             data-tilt
             onClick={(e) => handleCardClick(e, index)}
+            onKeyDown={(e) => handleCardKeyDown(e, index)}
             onMouseEnter={() => !isTouch && setActiveTooltip(index)}
             onMouseLeave={() => !isTouch && setActiveTooltip(null)}
           >
@@ -131,16 +147,13 @@ export default function TechStackGrid() {
 
             {/* Premium Floating Tooltip */}
             <div
-              className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-5 rounded-xl border border-white/10 bg-[#121214]/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out z-50 origin-bottom select-none pointer-events-none
+              className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-72 p-5 rounded-xl border border-white/10 bg-[#121214]/95 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out z-50 origin-bottom select-none
                 ${isOpened
-                  ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto visible'
-                  : 'opacity-0 scale-95 translate-y-2 invisible group-hover:md:opacity-100 group-hover:md:scale-100 group-hover:md:translate-y-0 group-hover:md:pointer-events-auto group-hover:md:visible'
+                  ? 'opacity-100 scale-100 translate-y-0 visible'
+                  : 'opacity-0 scale-95 translate-y-2 invisible group-hover:md:opacity-100 group-hover:md:scale-100 group-hover:md:translate-y-0 group-hover:md:visible'
                 }
               `}
-              style={{
-                transformStyle: 'preserve-3d',
-                transform: 'translateZ(50px) translateX(-50%)',
-              }}
+              style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Tooltip Header */}
               <div className="text-white font-display font-extrabold text-base mb-3 border-b border-white/10 pb-2 flex items-center justify-between">

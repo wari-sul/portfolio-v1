@@ -15,14 +15,14 @@ import { siteConfig } from '../config/site';
   </ul>
 
   <!-- Mobile Menu Button -->
-  <button id="mobile-menu-btn" class="z-[100] block md:hidden text-3xl" aria-label="Toggle Menu">
+  <button id="mobile-menu-btn" class="z-[100] block md:hidden text-3xl" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
     <svg id="menu-icon" class="w-7 h-7 text-[#202121] fill-current bg-gradient-to-r from-red-500 via-orange-500 to-purple-600 rounded p-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </button>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed left-[-100%] top-0 h-screen w-[70%] border-r border-r-gray-900 bg-[#0a0a0c]/95 backdrop-blur-xl ease-in-out duration-500 z-50 flex flex-col justify-center">
+  <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu" class="fixed left-[-100%] top-0 h-screen w-[70%] border-r border-r-gray-900 bg-[#0a0a0c]/95 backdrop-blur-xl ease-in-out duration-500 z-50 flex flex-col justify-center">
     <h1 class="text-3xl primary-color-text m-6 font-bold font-display text-center">{siteConfig.name}</h1>
     <ul class="p-8 text-2xl space-y-6 text-center font-sans">
       <li><a href="#portfolio" class="mobile-link block hover:text-white transition">Portfolio</a></li>
@@ -39,23 +39,37 @@ import { siteConfig } from '../config/site';
   const links = document.querySelectorAll('.mobile-link');
   let navOpen = false;
 
-  const toggleMenu = () => {
-    navOpen = !navOpen;
+  const toggleMenu = (forceClose = false) => {
+    if (forceClose) {
+      navOpen = false;
+    } else {
+      navOpen = !navOpen;
+    }
     if (navOpen) {
       menu?.classList.remove('left-[-100%]');
       menu?.classList.add('left-0');
+      btn?.setAttribute('aria-expanded', 'true');
       btn?.classList.add('fixed', 'right-4', 'top-7');
       btn?.classList.remove('relative', 'mr-4');
     } else {
       menu?.classList.add('left-[-100%]');
       menu?.classList.remove('left-0');
+      btn?.setAttribute('aria-expanded', 'false');
       btn?.classList.remove('fixed', 'right-4', 'top-7');
       btn?.classList.add('relative', 'mr-4');
     }
   };
 
-  btn?.addEventListener('click', toggleMenu);
+  btn?.addEventListener('click', () => toggleMenu());
   links.forEach(link => link.addEventListener('click', () => {
-    if (navOpen) toggleMenu();
+    if (navOpen) toggleMenu(true);
   }));
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navOpen) {
+      toggleMenu(true);
+      btn?.focus();
+    }
+  });
 </script>

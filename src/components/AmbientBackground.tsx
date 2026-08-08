@@ -1,10 +1,26 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 function ParticleField() {
   const ref = useRef<THREE.Points>(null);
+  const [paused, setPaused] = useState(false);
+
+  // Pause the WebGL render loop when the tab is hidden or user prefers reduced motion
+  useEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.matches) {
+      setPaused(true);
+      return;
+    }
+    
+    const handleVisibility = () => {
+      setPaused(document.hidden);
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
 
   // Generate beautiful random points in a sphere/box
   const sphere = useMemo(() => {
@@ -26,6 +42,7 @@ function ParticleField() {
 
   // Update particles frame-by-frame
   useFrame((state) => {
+    if (paused) return;
     if (ref.current) {
       // Gentle rotation over time
       ref.current.rotation.y = state.clock.getElapsedTime() * 0.02;
