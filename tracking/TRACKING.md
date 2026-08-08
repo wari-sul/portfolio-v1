@@ -506,6 +506,58 @@ _No entries yet. The first agent to complete Instruction 01 appends below this l
     (DevTools Rendering tab) as a final pass; headless checks here confirm the
     structure, not the visual result.
 
+---
+
+## [07] — Content and Consistency
+
+- **Agent model:** deepseek-v4-flash (opencode)
+- **Completed:** 2026-08-08T05:53:19Z
+- **Changes made:**
+  - **7.1** `src/content/projects/project1.yaml`: `title: "Project #1"` →
+    `title: "Food Delivery App Prototype"` (derived from the existing description;
+    no other fields touched).
+  - **7.2** Centralized the blog URL:
+    - `src/config/site.ts`: added `blog: "https://blog.warisul.com/"` inside `links`
+      (kept `hashnode` — both keys remain since they point to different platforms).
+    - `src/components/Navbar.astro`: both hardcoded `href="https://blog.warisul.com/"`
+      (desktop list item + mobile menu item) → `href={siteConfig.links.blog}`.
+  - **7.3** `README.md` fully rewritten for the CURRENT project: v4 static Astro
+    portfolio, feature list (typing hero, Gist build-time stats, tilt/glare cards,
+    snap carousel + Vimeo, StaticForms contact, tech tooltips), tech stack
+    (Astro 6, React 19 islands, Tailwind v4, GSAP+ScrollTrigger, Lenis,
+    VanillaTilt, Three.js/r3f, YAML content collections), commands table including
+    `npm run check`, both build-time env vars (`GIST_STATS_URL`,
+    `PUBLIC_STATICFORMS_KEY`) with the Cloudflare Pages dashboard warning kept,
+    and a Deployment section (static → Cloudflare Pages, `public/_headers`
+    security headers). All `v3-experimental`, wrangler, and Workers mentions
+    removed. (Original README had no LICENSE reference to preserve.)
+- **Files modified:**
+  - `src/content/projects/project1.yaml` [modified]
+  - `src/config/site.ts` [modified]
+  - `src/components/Navbar.astro` [modified]
+  - `README.md` [modified]
+  - `tracking/TRACKING.md` [modified]
+- **Summary:** The placeholder project title is replaced with an honest, neutral name;
+  the blog URL now flows from the single source of truth (`siteConfig.links`), with
+  `grep` confirming it exists only in `site.ts`; and the README now accurately
+  describes the v4 static Cloudflare Pages site including the `check` script and
+  both environment variables.
+- **Verification:**
+  - `npm run build`: PASS — exit 0, 1 warning (chunk > 500 kB).
+  - `npm run check`: PASS — 0 errors, 0 warnings, 32 hints.
+  - Manual checks: `grep -rn "blog.warisul.com" src/` matches ONLY
+    `src/config/site.ts:10`; `grep -niE "v3|wrangler|worker|experimental" README.md`
+    returns nothing; `dist/index.html` contains "Food Delivery App Prototype" and
+    exactly 2 `href="https://blog.warisul.com/"` links (desktop + mobile menus,
+    both `target="_blank"`); YAML revalidation implicit in build success;
+    `npm run preview`: 3 rapid reloads all HTTP 200, no errors in server log.
+- **Follow-ups:**
+  - Per instruction: project1's title is audit-generated — the owner should confirm
+    or supply the real project name.
+  - `siteConfig.links` still holds both `blog` (blog.warisul.com) and `hashnode`
+    (hashnode.com/warisul) — intentionally kept; owner may retire one later.
+
+
 
 
 

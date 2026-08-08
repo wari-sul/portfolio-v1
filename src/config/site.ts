@@ -7,6 +7,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/wari-sul",
     linkedin: "https://www.linkedin.com/in/warisul-rafin",
+    blog: "https://blog.warisul.com/",
     dashboard: "https://dashboard.warisul.com/",
     hashnode: "https://hashnode.com/warisul",
   },

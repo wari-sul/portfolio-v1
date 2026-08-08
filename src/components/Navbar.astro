@@ -8,7 +8,7 @@ import { siteConfig } from '../config/site';
   <ul class="hidden md:flex items-center gap-1">
     <li><a href="#portfolio" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Portfolio</a></li>
     <li><a href="#about" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Skills & Experience</a></li>
-    <li><a href="https://blog.warisul.com/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Blog</a></li>
+    <li><a href={siteConfig.links.blog} target="_blank" rel="noopener noreferrer" class="px-4 py-2 hover:text-white transition font-sans text-sm tracking-wide">Blog</a></li>
     <li class="ml-2">
       <a href="#contact" class="font-extrabold px-5 py-2.5 rounded-full bg-primary-color hover:opacity-90 transition text-sm tracking-wide">Contact</a>
     </li>
@@ -28,7 +28,7 @@ import { siteConfig } from '../config/site';
       <li><a href="#portfolio" class="mobile-link block hover:text-white transition">Portfolio</a></li>
       <li><a href="#about" class="mobile-link block hover:text-white transition">Skills & Experience</a></li>
       <li><a href="#contact" class="mobile-link block hover:text-white transition">Contact</a></li>
-      <li><a href="https://blog.warisul.com/" target="_blank" rel="noopener noreferrer" class="block hover:text-white transition">Blog</a></li>
+      <li><a href={siteConfig.links.blog} target="_blank" rel="noopener noreferrer" class="block hover:text-white transition">Blog</a></li>
     </ul>
   </div>
 </nav>
