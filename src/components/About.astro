@@ -132,9 +132,12 @@ const experiences = (await getCollection('experience')).sort((a, b) => a.data.or
 <script>
   import { gsap, initTilt } from '../utils/animations';
 
-  // ─── About Me intro card animation ───────────────────────────────────────
-  // Animate the whole card in from below
-  gsap.fromTo(".about-intro-card",
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // ─── About Me intro card animation ───────────────────────────────────────
+    // Animate the whole card in from below
+    gsap.fromTo(".about-intro-card",
     {
       y: 60,
       opacity: 0,
@@ -230,6 +233,7 @@ const experiences = (await getCollection('experience')).sort((a, b) => a.data.or
       }
     );
   });
+  }
 
   // Mouse tracking glow effect
   const trackingCards = document.querySelectorAll('.tracking-card');

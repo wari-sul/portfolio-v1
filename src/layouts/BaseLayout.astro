@@ -24,6 +24,7 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={siteConfig.url} />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -53,17 +54,7 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
       import Lenis from 'lenis';
       import { gsap, ScrollTrigger } from '../utils/animations';
 
-      // Initialize Lenis with smooth momentum physics
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        orientation: 'vertical',
-        gestureOrientation: 'vertical',
-        smoothWheel: true,
-      });
-
-      // Synchronize Lenis with ScrollTrigger
-      lenis.on('scroll', ScrollTrigger.update);
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       // Refresh ScrollTrigger after all resources (images, fonts, iframes) are fully loaded
       window.addEventListener('load', () => {
@@ -72,43 +63,59 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
         }, 100);
       });
 
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-
-      gsap.ticker.lagSmoothing(0);
-
-      // Custom Cursor with elegant lag tracking
-      const cursor = document.querySelector('.custom-cursor');
-      if (cursor) {
-        document.addEventListener('mousemove', (e) => {
-          gsap.to(cursor, {
-            x: e.clientX,
-            y: e.clientY,
-            duration: 0.15,
-            ease: 'power2.out',
-            overwrite: 'auto'
-          });
+      if (!prefersReducedMotion) {
+        // Initialize Lenis with smooth momentum physics
+        const lenis = new Lenis({
+          duration: 1.4,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
         });
 
-        // Dynamic Hover effect
-        const onEnter = () => cursor.classList.add('hovered');
-        const onLeave = () => cursor.classList.remove('hovered');
+        // Synchronize Lenis with ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
 
-        const updateHoverables = () => {
-          document.querySelectorAll('a, button, [role="button"], .magnetic-btn, .glass-card').forEach((el) => {
-            el.removeEventListener('mouseenter', onEnter);
-            el.removeEventListener('mouseleave', onLeave);
-            el.addEventListener('mouseenter', onEnter);
-            el.addEventListener('mouseleave', onLeave);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+
+        // Custom Cursor with elegant lag tracking
+        const cursor = document.querySelector('.custom-cursor');
+        if (cursor) {
+          document.documentElement.classList.add('custom-cursor-on');
+
+          document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+              x: e.clientX,
+              y: e.clientY,
+              duration: 0.15,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
           });
-        };
 
-        updateHoverables();
+          // Dynamic Hover effect
+          const onEnter = () => cursor.classList.add('hovered');
+          const onLeave = () => cursor.classList.remove('hovered');
 
-        // Re-observe if the DOM updates dynamically
-        const observer = new MutationObserver(updateHoverables);
-        observer.observe(document.body, { childList: true, subtree: true });
+          const updateHoverables = () => {
+            document.querySelectorAll('a, button, [role="button"], .magnetic-btn, .glass-card').forEach((el) => {
+              el.removeEventListener('mouseenter', onEnter);
+              el.removeEventListener('mouseleave', onLeave);
+              el.addEventListener('mouseenter', onEnter);
+              el.addEventListener('mouseleave', onLeave);
+            });
+          };
+
+          updateHoverables();
+
+          // Re-observe if the DOM updates dynamically
+          const observer = new MutationObserver(updateHoverables);
+          observer.observe(document.body, { childList: true, subtree: true });
+        }
       }
     </script>
   </body>

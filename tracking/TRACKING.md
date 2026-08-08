@@ -426,6 +426,87 @@ _No entries yet. The first agent to complete Instruction 01 appends below this l
     shrunken `ppic` webp. `npm run preview`: HTTP 200, no errors in server log.
 - **Follow-ups:** None
 
+---
+
+## [06] — Accessibility and SEO
+
+- **Agent model:** deepseek-v4-flash (opencode)
+- **Completed:** 2026-08-08T05:51:20Z
+- **Changes made:**
+  - **6.1** Custom cursor now hides the native pointer: `BaseLayout.astro` adds
+    `custom-cursor-on` to `<html>` as the first statement inside the `if (cursor)`
+    block; `global.css` scopes `cursor: none` via
+    `@media (pointer: fine) { html.custom-cursor-on, html.custom-cursor-on * }` so
+    touch/keyboard-only users and small screens are never affected.
+  - **6.2** Heading hierarchy fixed:
+    - `Navbar.astro`: desktop logo `h1` → `span`; mobile menu title `h1` → `span`
+      (branding is not a heading; anchor inside unchanged).
+    - `Hero.astro`: the name `span` → `<h1>` (the page's single heading).
+    - `TechStack.astro`: section title `h3` → `h2`.
+    - `About.astro` (Skills/Experience), `Portfolio.astro`, `Contact.astro` were
+      already `h2` — untouched.
+  - **6.3** `prefers-reduced-motion` respected everywhere (identical spelling
+    `window.matchMedia('(prefers-reduced-motion: reduce)')` in 7 places):
+    - `BaseLayout.astro`: constant at top of script; Lenis creation + `lenis.on`,
+      `gsap.ticker.add`, `gsap.ticker.lagSmoothing(0)`, and the whole custom-cursor
+      initialization wrapped in `if (!prefersReducedMotion) { ... }`; the
+      `window.addEventListener('load', ...)` ScrollTrigger refresh stays outside the
+      guard (native scrolling + native cursor when reduced motion is preferred).
+    - `Hero.astro`: typing effect stays OUTSIDE the guard (content); magnetic-button
+      transforms guarded in the inline script; tilt + both gsap entrance animations
+      guarded in the processed script.
+    - `About.astro`: the four entrance animations + tilt guarded; the tracking-glow
+      mousemove handler left outside (not an animation initializer).
+    - `Contact.astro`: tilt + both entrance animations guarded; the form submission
+      handler (including the post-submit success animation) left outside.
+    - `Portfolio.astro`: tilt + carousel entrance guarded; the scroll-button script
+      (separate `<script>`, pure functionality) untouched.
+    - `TechStackGrid.tsx`: `initAnimations()` only called when
+      `!prefersReducedMotion`; tooltip hover/click behavior unaffected.
+    - `Navbar.astro`: untouched (no animations).
+    - `global.css`: appended the global kill-switch
+      (`animation-duration: 0.01ms !important`, `animation-iteration-count: 1`,
+      `transition-duration: 0.01ms`, `scroll-behavior: auto` under the media query).
+  - **6.4** SEO: `<link rel="canonical" href={siteConfig.url} />` added after the
+    primary meta tags in `BaseLayout.astro`; created `public/robots.txt`
+    (`User-agent: *` / `Allow: /`). No sitemap line — none exists (recorded below).
+- **Files modified:**
+  - `src/layouts/BaseLayout.astro` [modified]
+  - `src/styles/global.css` [modified]
+  - `src/components/Navbar.astro` [modified]
+  - `src/components/Hero.astro` [modified]
+  - `src/components/TechStack.astro` [modified]
+  - `src/components/About.astro` [modified]
+  - `src/components/Contact.astro` [modified]
+  - `src/components/Portfolio.astro` [modified]
+  - `src/components/TechStackGrid.tsx` [modified]
+  - `public/robots.txt` [created]
+  - `tracking/TRACKING.md` [modified]
+- **Summary:** Desktop users now see a single pink-ring cursor (native pointer hidden
+  only under `pointer: fine` + custom-cursor-on), the page has exactly one logical
+  `h1` (hero name) with `h2` section headings (nav titles demoted to spans), all
+  animation/tilt/cursor/smooth-scroll code is skipped when the user prefers reduced
+  motion (content stays fully visible thanks to Instruction 04's `immediateRender:
+  false` work), and the site now ships a canonical URL and `robots.txt`.
+- **Verification:**
+  - `npm run build`: PASS — exit 0, 1 warning (chunk > 500 kB).
+  - `npm run check`: PASS — 0 errors, 0 warnings, 32 hints (unchanged from Instruction 05).
+  - Manual checks: `grep -rn "<h1" src/` matches exactly ONE occurrence (Hero name);
+    `grep -rn "matchMedia('(prefers-reduced-motion: reduce)')" src/` = 7 identical
+    occurrences; `dist/index.html` contains exactly 1 `<h1`, 5 `<h2>` section titles,
+    and `<link rel="canonical" href="https://warisul.com/">`; `dist/robots.txt`
+    exists with the correct content; built CSS contains the `custom-cursor-on`
+    `pointer: fine` rule and the reduced-motion kill-switch; no
+    `querySelectorAll('h1'`-style element-name selectors exist in `src/`.
+    `npm run preview`: HTTP 200, no errors in server log.
+- **Follow-ups:**
+  - No sitemap exists yet, so `robots.txt` intentionally has no Sitemap line
+    (per instruction); adding one is a future task.
+  - Note: reduced-motion emulation should be eyeballed in a real browser
+    (DevTools Rendering tab) as a final pass; headless checks here confirm the
+    structure, not the visual result.
+
+
 
 
 

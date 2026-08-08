@@ -45,7 +45,7 @@ const { stats } = Astro.props;
       <p class="animate-in text-xl md:text-2xl font-extrabold text-gray-200 font-display tracking-tight leading-none">
         Hi! I am
       </p>
-      <span class="animate-in text-3xl md:text-4xl lg:text-5xl block my-2 text-white font-extrabold font-display leading-tight break-words">{siteConfig.name}</span>
+      <h1 class="animate-in text-3xl md:text-4xl lg:text-5xl block my-2 text-white font-extrabold font-display leading-tight break-words">{siteConfig.name}</h1>
       <span class="animate-in block min-h-[3.5rem] mt-1 overflow-hidden">
         <span id="typing-text" class="inline text-lg md:text-xl leading-normal py-1 primary-color-text font-bold typewriter-cursor relative"></span>
       </span>
@@ -124,67 +124,75 @@ const { stats } = Astro.props;
 
   setTimeout(type, 1000);
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Magnetic Button Effect
-  const magnets = document.querySelectorAll('.magnetic-btn');
-  
-  magnets.forEach((btn) => {
-    btn.addEventListener('mousemove', (e) => {
-      const position = btn.getBoundingClientRect();
-      const x = e.clientX - position.left - position.width / 2;
-      const y = e.clientY - position.top - position.height / 2;
-      
-      btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-    });
+  if (!prefersReducedMotion) {
+    const magnets = document.querySelectorAll('.magnetic-btn');
     
-    btn.addEventListener('mouseout', (e) => {
-      btn.style.transform = 'translate(0px, 0px)';
+    magnets.forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const position = btn.getBoundingClientRect();
+        const x = e.clientX - position.left - position.width / 2;
+        const y = e.clientY - position.top - position.height / 2;
+        
+        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+      });
+      
+      btn.addEventListener('mouseout', (e) => {
+        btn.style.transform = 'translate(0px, 0px)';
+      });
     });
-  });
+  }
 </script>
 
 <script>
   import { gsap, initTilt } from '../utils/animations';
 
-  // Initialize smooth 3D tilt for hero cards
-  initTilt('#home .glass-card', { max: 8, speed: 800, maxGlare: 0.12, perspective: 1200, scale: 1.01 });
-  
-  // Only animate the LEFT card's text children — NOT the Key Stats panel
-  gsap.fromTo("#home-left-card .animate-in",
-    {
-      z: -100,
-      rotationX: 15,
-      y: 50,
-      opacity: 0,
-      filter: "blur(15px)",
-    },
-    {
-      z: 0,
-      rotationX: 0,
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 1.8,
-      stagger: 0.25,
-      ease: "power4.out",
-      delay: 0.3,
-      immediateRender: false,
-    }
-  );
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.fromTo("#home img",
-    {
-      scale: 0.85,
-      y: 30,
-      opacity: 0,
-    },
-    {
-      scale: 1,
-      y: 0,
-      opacity: 1,
-      duration: 1.8,
-      ease: "power4.out",
-      delay: 0.1,
-      immediateRender: false,
-    }
-  );
+  if (!prefersReducedMotion) {
+    // Initialize smooth 3D tilt for hero cards
+    initTilt('#home .glass-card', { max: 8, speed: 800, maxGlare: 0.12, perspective: 1200, scale: 1.01 });
+    
+    // Only animate the LEFT card's text children — NOT the Key Stats panel
+    gsap.fromTo("#home-left-card .animate-in",
+      {
+        z: -100,
+        rotationX: 15,
+        y: 50,
+        opacity: 0,
+        filter: "blur(15px)",
+      },
+      {
+        z: 0,
+        rotationX: 0,
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.8,
+        stagger: 0.25,
+        ease: "power4.out",
+        delay: 0.3,
+        immediateRender: false,
+      }
+    );
+
+    gsap.fromTo("#home img",
+      {
+        scale: 0.85,
+        y: 30,
+        opacity: 0,
+      },
+      {
+        scale: 1,
+        y: 0,
+        opacity: 1,
+        duration: 1.8,
+        ease: "power4.out",
+        delay: 0.1,
+        immediateRender: false,
+      }
+    );
+  }
 </script>

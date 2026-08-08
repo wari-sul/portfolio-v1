@@ -58,7 +58,10 @@ export default function TechStackGrid() {
       );
     };
 
-    initAnimations();
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      initAnimations();
+    }
 
     return () => {
       document.removeEventListener('click', handleOutsideClick);

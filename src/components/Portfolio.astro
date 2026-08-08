@@ -101,36 +101,40 @@ const projects = (await getCollection('projects')).sort((a, b) => a.data.order -
 <script>
   import { gsap, initTilt } from '../utils/animations';
 
-  // Initialize smooth 3D tilt for project cards
-  initTilt('#portfolio .snap-center', { max: 10, speed: 500, maxGlare: 0.15, perspective: 1200 });
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  gsap.fromTo("#portfolio .snap-center", 
-    {
-      rotationX: -10,
-      rotationY: 15,
-      z: -100,
-      y: 60,
-      opacity: 0,
-      filter: "blur(15px)",
-    },
-    {
-      scrollTrigger: {
-        trigger: "#portfolio-container",
-        start: "top 85%",
-        once: true,
+  if (!prefersReducedMotion) {
+    // Initialize smooth 3D tilt for project cards
+    initTilt('#portfolio .snap-center', { max: 10, speed: 500, maxGlare: 0.15, perspective: 1200 });
+
+    gsap.fromTo("#portfolio .snap-center", 
+      {
+        rotationX: -10,
+        rotationY: 15,
+        z: -100,
+        y: 60,
+        opacity: 0,
+        filter: "blur(15px)",
       },
-      rotationX: 0,
-      rotationY: 0,
-      z: 0,
-      y: 0,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 1.6,
-      stagger: 0.2,
-      overwrite: 'auto',
-      ease: "power4.out",
-      clearProps: "all",
-      immediateRender: false,
-    }
-  );
+      {
+        scrollTrigger: {
+          trigger: "#portfolio-container",
+          start: "top 85%",
+          once: true,
+        },
+        rotationX: 0,
+        rotationY: 0,
+        z: 0,
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 1.6,
+        stagger: 0.2,
+        overwrite: 'auto',
+        ease: "power4.out",
+        clearProps: "all",
+        immediateRender: false,
+      }
+    );
+  }
 </script>

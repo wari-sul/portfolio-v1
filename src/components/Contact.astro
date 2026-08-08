@@ -115,8 +115,11 @@ if (!accessKey) {
 <script>
   import { gsap, initTilt } from '../utils/animations';
 
-  // Initialize smooth 3D tilt for contact card
-  initTilt('#contact .glass-card', { max: 6, speed: 700, maxGlare: 0.1, perspective: 1200 });
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    // Initialize smooth 3D tilt for contact card
+    initTilt('#contact .glass-card', { max: 6, speed: 700, maxGlare: 0.1, perspective: 1200 });
 
   gsap.fromTo("#contact .text-center > *",
     {
@@ -170,6 +173,7 @@ if (!accessKey) {
       immediateRender: false,
     }
   );
+  }
 
   // Form submission
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
