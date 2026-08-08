@@ -21,8 +21,6 @@ const experienceCollection = defineCollection({
   loader: glob({ pattern: "*.yaml", base: "./src/content/experience" }),
   schema: z.object({
     title: z.string(),
-    duration: z.string(),
-    company: z.string().optional(),
     description: z.array(z.string()),
     result: z.string(),
     order: z.number().default(0)

@@ -1,5 +1,4 @@
 title: "DevOps Engineer"
-duration: "2022 - 2024"
 description:
   - "Implemented fully automated CI/CD pipelines using GitHub Actions and GitLab CI, deploying immutable Docker containers."
   - "Built comprehensive observability stacks using Prometheus, Grafana, and ELK, reducing mean time to recovery (MTTR) by 40%."

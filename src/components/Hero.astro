@@ -1,10 +1,8 @@
 ---
 import { siteConfig } from '../config/site';
 import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
 import profilePic from '../assets/ppic.png';
 import profilePicMobile from '../assets/ppic-mobile.png';
-import TechStackIcon from './TechStackIcon';
 import { fetchStats } from '../utils/fetchStats';
 
 const stats = await fetchStats();

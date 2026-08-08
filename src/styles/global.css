@@ -50,42 +50,6 @@
   }
 }
 
-@keyframes float {
-  0% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-8px) rotate(2deg); }
-  66% { transform: translateY(4px) rotate(-2deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
-}
-
-.floating-node {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Add loading animation */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes shine {
-  from {
-    transform: translateX(-100%) skewX(-12deg);
-  }
-  to {
-    transform: translateX(200%) skewX(-12deg);
-  }
-}
-
-.loading {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #FFF;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: spin 1s linear infinite;
-}
-
 .primary-color-text, span.primary-color-text {
   background-image: linear-gradient(to right, #9d2ba8, #e53e9a, #e8a023);
   -webkit-background-clip: text;
@@ -129,10 +93,6 @@
   transform: translateZ(35px);
 }
 
-.depth-lg {
-  transform: translateZ(50px);
-}
-
 .tracking-card {
   position: relative;
 }
@@ -149,10 +109,19 @@
   z-index: 1;
 }
 
-.shiny-effect {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle, rgba(201, 32, 133, 0.4), transparent 70%);
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.typewriter-cursor::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  background: #e53e9a;
+  animation: caret-blink 1.2s steps(1) infinite;
 }

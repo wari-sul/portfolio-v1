@@ -114,7 +114,7 @@ const { title = siteConfig.title, description = siteConfig.description } = Astro
         const onLeave = () => cursor.classList.remove('hovered');
 
         const updateHoverables = () => {
-          document.querySelectorAll('a, button, [role="button"], .interactive, .magnetic-btn, .glass-card, .shiny-effect-container').forEach((el) => {
+          document.querySelectorAll('a, button, [role="button"], .magnetic-btn, .glass-card').forEach((el) => {
             el.removeEventListener('mouseenter', onEnter);
             el.removeEventListener('mouseleave', onLeave);
             el.addEventListener('mouseenter', onEnter);

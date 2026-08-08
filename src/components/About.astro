@@ -67,7 +67,7 @@ const stats = await fetchStats();
     <!-- Skills Bento Box -->
     <div class="p-4 md:p-6 col-span-2 md:col-span-1">
       <h2 class="text-gray-200 text-3xl font-bold mb-6"><span class="primary-color-text">Skills</span></h2>
-      <div class="grid grid-cols-1 gap-4 accordion-group">
+      <div class="grid grid-cols-1 gap-4">
         {skillsGroups.map(group => (
           <div class="glass-card tracking-card p-5 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 overflow-hidden">
             <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -97,7 +97,7 @@ const stats = await fetchStats();
     <!-- Experience Cards -->
     <div class="p-4 md:p-6 col-span-2 md:col-span-1">
       <h2 class="text-gray-200 text-3xl font-bold mb-6"><span class="primary-color-text">Experience</span></h2>
-      <div class="space-y-4 accordion-group">
+      <div class="space-y-4">
         {experiences.map(exp => (
           <div class="glass-card tracking-card p-6 group hover:border-[rgba(201,32,133,0.4)] transition-all duration-300 relative overflow-hidden">
             <div class="tracking-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

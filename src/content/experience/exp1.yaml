@@ -1,5 +1,4 @@
 title: "Senior Cloud Architect"
-duration: "2024 - Present"
 description:
   - "Architected and maintained multi-region high-availability Kubernetes clusters on AWS."
   - "Designed infrastructure as code (IaC) solutions utilizing Terraform and Ansible, ensuring 100% reproducible environments."
